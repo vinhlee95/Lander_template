@@ -1,0 +1,25 @@
+:root {
+  --intro-gradient: linear-gradient(
+    rgba(245, 241, 241, 0.3),
+    rgba(231, 220, 220, 0.7)
+  );
+}
+
+.intro-container {
+  display: flex; flex-direction: column;
+  justify-content: flex-end; align-items: center;
+  height: 90vh;
+
+  background: 
+    // var(--intro-gradient),
+    url('../../images/intro_desktop.jpg');
+  background-size: cover;
+  background-position: center;
+
+  h1 {
+    color: #fff;
+    margin: 15px auto;
+    font-size: 45px;
+    text-align: center;
+  }
+}

@@ -1,0 +1,157 @@
+@import '../../../../../globals/variables.scss';
+
+.gigle-footer {
+	width: 100%;
+	max-width: $maxWidth;
+	margin: 0 auto;
+	padding: 2rem;
+	font-size: .9rem;
+	border-top: 1px solid $gray;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	justify-content: space-between;
+}
+
+.footer {
+	width:95%;
+	margin: 20px auto;
+	padding: 20px 0;
+	
+}
+
+.footer-row {
+	display:flex;
+	width:100%;
+	flex-direction: column;
+	text-align: center;
+	
+	@include notMobile() {
+		flex-direction: row;
+		padding: 0 60px 0 20px;
+		
+	}
+
+}
+
+.footer-col {
+	flex:1;
+	padding: 2vmax;
+	
+	
+	font-size: 1rem;
+	
+	&.centered {
+		@include flex();
+	}
+	
+	@include notMobile() {
+		padding: 0 20px;
+		border-left: 1px $gray solid;
+		
+	}
+	
+	&:first-child{
+            border-left: none;           
+        }
+	
+}
+
+.footer-col-title {
+	font-size: 1.3em;
+	margin-bottom: 20px;
+}
+
+.footer-link {
+	padding: .5rem 1rem .5rem 1rem;
+	margin: 0 2rem;
+	border-bottom: 1px $gray dashed;
+	text-align: left;
+	font-size: 1rem;
+	cursor: pointer;
+	
+	&:hover {
+		font-weight: bold;
+		border-bottom: 1px $green dashed;
+	}
+	
+	&:last-child {
+		border-bottom: none;
+	}
+	
+	transition: all .2s ease;
+}
+
+.footer-somelink {
+	
+	width:100%;
+	display:flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	margin: 5px 0;
+	
+	padding: 1vw;
+	border: 1px $gray solid;
+	
+	@include notMobile() {
+		padding: 5px;
+		border: none;
+	}
+	
+	&:hover {
+		font-weight: bold;
+		opacity: .8;
+	}
+	
+	transition: all .2s ease;
+}
+
+.footer-somelink-icon {
+	flex:1;
+	max-width: 15vw;
+	
+	@include notMobile() {
+		max-width: 35px;
+	}
+
+}
+.footer-somelink-label {
+	flex:6;
+	text-align: left;
+	padding: 0 10px;
+	
+}
+
+.footer-bottomtext {
+	margin:30px 0;
+	color: $dark;
+	
+	font-size:.9rem;
+	
+	
+
+}
+
+.footer-hline {
+	margin: 20px auto;
+	width: 80%;
+	border-bottom: 1px $gray dashed;
+}
+
+.footer-partners {
+	@include flex();	
+}
+
+.footer-partnerLogo {
+	width: 70%;
+	
+	&:hover {
+		opacity: .8;
+		transform: translateY(-5%);
+	}
+	
+	transition: all .2s ease;
+}
+

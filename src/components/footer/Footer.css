@@ -1,0 +1,127 @@
+/* Fonts */
+/* colors */
+/* Media */
+/* Transitions */
+.gigle-mobile-only {
+  display: none; }
+  @media (max-width: 767px) {
+    .gigle-mobile-only {
+      display: block; } }
+
+.gigle-centered {
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.gigle-footer {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-size: .9rem;
+  border-top: 1px solid #cccccc;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between; }
+
+.footer {
+  width: 95%;
+  margin: 20px auto;
+  padding: 20px 0; }
+
+.footer-row {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  text-align: center; }
+  @media (min-width: 768px) {
+    .footer-row {
+      flex-direction: row;
+      padding: 0 60px 0 20px; } }
+
+.footer-col {
+  flex: 1;
+  padding: 2vmax;
+  font-size: 1rem; }
+  .footer-col.centered {
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+  @media (min-width: 768px) {
+    .footer-col {
+      padding: 0 20px;
+      border-left: 1px #cccccc solid; } }
+  .footer-col:first-child {
+    border-left: none; }
+
+.footer-col-title {
+  font-size: 1.3em;
+  margin-bottom: 20px; }
+
+.footer-link {
+  padding: .5rem 1rem .5rem 1rem;
+  margin: 0 2rem;
+  border-bottom: 1px #cccccc dashed;
+  text-align: left;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all .2s ease; }
+  .footer-link:hover {
+    font-weight: bold;
+    border-bottom: 1px #86b554 dashed; }
+  .footer-link:last-child {
+    border-bottom: none; }
+
+.footer-somelink {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 5px 0;
+  padding: 1vw;
+  border: 1px #cccccc solid;
+  transition: all .2s ease; }
+  @media (min-width: 768px) {
+    .footer-somelink {
+      padding: 5px;
+      border: none; } }
+  .footer-somelink:hover {
+    font-weight: bold;
+    opacity: .8; }
+
+.footer-somelink-icon {
+  flex: 1;
+  max-width: 15vw; }
+  @media (min-width: 768px) {
+    .footer-somelink-icon {
+      max-width: 35px; } }
+
+.footer-somelink-label {
+  flex: 6;
+  text-align: left;
+  padding: 0 10px; }
+
+.footer-bottomtext {
+  margin: 30px 0;
+  color: #353535;
+  font-size: .9rem; }
+
+.footer-hline {
+  margin: 20px auto;
+  width: 80%;
+  border-bottom: 1px #cccccc dashed; }
+
+.footer-partners {
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.footer-partnerLogo {
+  width: 70%;
+  transition: all .2s ease; }
+  .footer-partnerLogo:hover {
+    opacity: .8;
+    transform: translateY(-5%); }

@@ -1,0 +1,218 @@
+@import '../../../../../globals/variables.scss';
+
+$hamburger-layer-color: $green;
+@import "~hamburgers/dist/hamburgers.css";
+
+.gigle-header-container {
+	position:relative;
+	width: 100%;
+	background: $white;
+	z-index: 1000000;
+}
+
+.gigle-header {
+	position: relative;
+	width: 100%;
+	height: 5rem;
+	max-width: $maxWidth;
+	margin: 0 auto;
+	
+	font-size: 1rem;
+	border-bottom: 1px solid $gray;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	text-align: center;
+	z-index: 2;
+	}
+	
+.gigle-header-underlay {
+	position: absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	background:$white;
+	z-index: 1;
+}
+
+.gigle-header-left {
+	z-index: 3;
+	@include flex();
+	
+}
+
+
+.gigle-header-menuIcon-mobile {
+	
+	display: inline-block;
+	
+	color: $green;
+	z-index: 3;
+	
+	@include notMobile {
+		display: none;
+	}
+}
+
+.gigle-header-rightMenu {
+	
+	display: none;	
+	flex-direction: column;
+	position: absolute;
+	background: white;
+	
+	z-index: 4;
+	
+	
+	
+	@include notMobile {
+		display: flex;
+		position: relative;
+		flex-direction: row;
+		transform: translateY(0%);
+		
+	}
+	
+}
+
+.gigle-header-leftMenu {
+	@include flex();
+	
+	@include mobile {
+		display:none;
+		
+				
+	}
+}
+
+.gigle-header-mobileMenu {
+	position: absolute;
+	display: none;
+	
+	@include mobile {
+		display:flex;
+		flex-direction: column;
+		right: 0;
+		bottom: 0;
+		transform: translateY(0%);
+		z-index: 0;
+		padding: 1rem;
+		border: $basicBorder;
+		background: $white;
+		&.active {
+				
+			transform: translateY(100%);
+		}
+		
+		
+	}
+	transition: transform 0.3s ease;
+}
+
+.gigle-header-subMenu {
+	
+	display:flex;
+	position:absolute;
+	bottom:0;
+	left:0;
+	right:0;
+	margin: 0 auto;
+	transform: translateY(-1%);
+	opacity: 0;
+	justify-content: center;
+	align-items: center;
+	width:100%;
+	max-width: $maxWidth;
+	
+	padding: 2rem;
+	color: $white;
+	
+	font-weight: 400;
+	background: $green;	
+	
+	&.active {
+				
+		transform: translateY(100%);
+		opacity: 1;
+		
+	}
+	
+	transition: all .3s ease;
+	
+	@include mobile {
+		display:none;
+		
+				
+	}
+}
+
+.gigle-header-rightMenu-item {
+	padding: .5rem 1rem;
+	margin: .5rem;
+	border: $basicBorder;
+	cursor: pointer;
+	
+	@include mobile {
+		padding: 1rem 2rem;
+		font-size: 1.5rem;
+	}
+	
+	&:hover {
+		border: 1px $green solid;
+		@include borderShadow();
+	}
+	
+	transition: all 0.3s ease;
+}
+
+.gigle-header-leftMenu-item {
+	padding: .1rem 1rem;
+	
+	
+	cursor: pointer;
+	font-weight: 200;
+	font-size: 1.3rem;
+	
+	@include mobile {
+		padding: 1rem 2rem;
+		font-size: 1.5rem;
+	}
+	
+	@include notMobile {
+		
+		border-right: $basicBorder;
+		&:hover {
+			
+			font-weight: bold;
+	
+		}
+		
+		&:last-child {
+			
+				border-right: none;
+			
+			
+		}
+	}
+	
+	transition: all 0.3s ease;
+}
+
+.gigle-header-leftMenu-itemIcon {
+	font-size: 1rem;
+	padding: .2rem;
+	color: $green;
+}
+
+
+
+
+
+.gigle-logo {
+	height:30px;
+	margin-top: -.2rem;
+	padding: 0 1rem;;
+	cursor: pointer;
+	
+}

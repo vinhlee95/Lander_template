@@ -1,0 +1,29 @@
+:root {
+  --button-background: rgb(63, 95, 170);
+  --button-hover-background: rgb(137, 155, 197);
+}
+
+.button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px 20px; border-radius: 8px;
+  background: var(--button-background);
+  color: #fff;
+  transition: .3s;
+  cursor: pointer;
+
+  span {
+    text-align: center;
+  }
+
+  .label {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+}
+
+.button:hover {
+  background: var(--button-hover-background);
+}
