@@ -8,10 +8,17 @@ export default class Header extends React.Component {
 		super(props);
 		this.setItemAction=this.setItemAction.bind(this);
 		this.openSubmenu=this.openSubmenu.bind(this);
-		this.state={}
+		this.state={ isTop: true }
 	}
-	componentDidMount(){
-	}
+	componentDidMount() {
+    document.addEventListener('scroll', () => {
+      const isTop = window.scrollY < 100;
+      if (isTop !== this.state.isTop) {
+          this.setState({ isTop })
+      }
+    });
+  }
+
 	render(){
 		
 		console.log('Rendering header',this.props);
@@ -94,7 +101,7 @@ export default class Header extends React.Component {
 		
 		let staticItems;
 		return(
-			<div className='gigle-header-container' >
+			<div className={this.state.isTop ? 'gigle-header-container-top' : 'gigle-header-container' }>
 				<div className='gigle-header'>
 					<div className='gigle-header-left'>
 						<img className='gigle-logo' src='/static/logo_marker.png' onClick={()=>window.open('/','_self')} />

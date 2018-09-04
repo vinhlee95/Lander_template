@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import request from 'superagent';
 import PerformanceCard from '../PerformanceCard';
 import './PerformerList.scss';
+import { Element } from 'react-scroll';
 
 const URL = 'https://node.gigleapp.com/search';
 
@@ -49,12 +50,14 @@ class PerformerList extends Component {
                   
     console.log(this.state.products)
     return (
-      <div>
-        <h1>Esiintyjat</h1>
-        <div className='performance-list'>
-          {performanceList}
-          {performanceList}
-        </div>
+      <div className='body-container'>
+        <Element name='performer-list'>
+          <h1>Esiintyjat</h1>
+          <div className='performance-list'>
+            {performanceList}
+            {performanceList}
+          </div>
+        </Element>
       </div>
     )
   }

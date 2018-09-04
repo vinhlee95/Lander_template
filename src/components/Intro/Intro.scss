@@ -6,9 +6,13 @@
 }
 
 .intro-container {
+  position: absolute; top: 0; left: 0;
+  height: 100vh;
+  width: 100%; 
+  display: block;
   display: flex; flex-direction: column;
   justify-content: flex-end; align-items: center;
-  height: 90vh;
+  z-index: 1000;
 
   background: 
     // var(--intro-gradient),
@@ -21,5 +25,34 @@
     margin: 15px auto;
     font-size: 45px;
     text-align: center;
+  }
+
+  .see-more-button {
+    color: #fff;
+    display: flex; justify-content: center; align-items: center;
+    cursor: pointer;
+    transition: transform .3s;
+
+    span {
+      font-size: 25px; font-weight: 600;
+      margin-left: 5px;
+    }
+  }
+
+  .see-more-button:hover {
+    transform: scale(1.2);
+    color: rgb(240, 232, 232);
+  }
+
+
+  .button-group {
+    width: 70%;
+    margin: 40px auto;
+    display: flex; 
+    justify-content: center;
+  
+    .button {
+      margin: 0 20px;
+    }
   }
 }

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Header from './header/Header';
 import Footer from './footer/Footer';
 import Intro from './Intro/Intro';
-import Button from './Button/Button';
 import './App.scss';
 import PerformerList from './Performer/PerformerList';
 
@@ -31,16 +30,7 @@ class App extends Component {
 			}} />
       
       <Intro />
-      <div className='button-group'>
-        <Button
-          label='Ilmoittaudu olkkariksi'
-          subLabel='Kutsu essintyjä jä yleisöä kotikeikalle'
-        />
-        <Button
-          label='Tule keikalle'
-          subLabel='Käy kylässä ja nauti lastenesityksestä'
-        />
-      </div>
+      
 
       <PerformerList />
 
