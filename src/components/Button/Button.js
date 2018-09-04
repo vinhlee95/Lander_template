@@ -4,8 +4,11 @@ import './Button.scss';
 const Button = (props) => {
   return(
     <div className='button'>
-      <span className='label'>{props.label}</span>
-      <span>{props.subLabel}</span>
+      {props.leftIcon ? props.leftIcon : null}
+      <section className='label-container'>
+        <span className='label'>{props.label}</span>
+        <span>{props.subLabel}</span>
+      </section>
     </div>
   )
 }
