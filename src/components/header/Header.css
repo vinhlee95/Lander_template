@@ -35,7 +35,7 @@
   max-width: 1200px;
   margin: 0 auto;
   font-size: 1rem;
-  /* border-bottom: 1px solid #cccccc; */
+  border-bottom: 1px solid #cccccc;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -66,7 +66,7 @@
       display: none; } }
 
 .gigle-header-rightMenu {
-  color: #fff;
+  /* color: #fff; */
   display: none;
   flex-direction: column;
   position: absolute;
@@ -80,7 +80,7 @@
       transform: translateY(0%); } }
 
 .gigle-header-leftMenu {
-  color: #fff;
+  /* color: #fff; */
   display: flex;
   justify-content: center;
   align-items: center; }
