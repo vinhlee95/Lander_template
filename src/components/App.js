@@ -4,9 +4,15 @@ import Footer from './footer/Footer';
 import Intro from './Intro/Intro';
 import './App.scss';
 import PerformerList from './Performer/PerformerList';
+import Modal from './Modal/Modal';
 
 
 class App extends Component {
+  state = {
+    showModal: true,
+  }
+
+
   render() {
     return (
       <div className="App">
@@ -29,7 +35,19 @@ class App extends Component {
 				}
 			}} />
       
-      <Intro />
+      <Intro
+        handleOpenModal={() => this.setState({ showModal: true })}
+      />
+
+      {
+        this.state.showModal
+        ?
+        <Modal
+          handleCloseModal={() => this.setState({ showModal: false })}
+        />
+        : 
+        null
+      }
       
 
       <PerformerList />

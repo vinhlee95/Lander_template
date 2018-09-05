@@ -28,6 +28,7 @@ export default class Intro extends Component {
           <Button
             label='Ilmoittaudu olkkariksi'
             subLabel='Kutsu essintyjä jä yleisöä kotikeikalle'
+            onClick={this.props.handleOpenModal}
           />
           <Button
             label='Tule keikalle'
