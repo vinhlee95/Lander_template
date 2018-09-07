@@ -1,4 +1,18 @@
 :root {
-
+  --body-font: 'Raleway', sans-serif !important;
 }
+
+
+
+
+
+.snackbar {
+  z-index: 10000000 !important;
+
+  .snackbar-message {
+    font-family: var(--body-font);
+    font-size: 18px;
+  }
+}
+
 

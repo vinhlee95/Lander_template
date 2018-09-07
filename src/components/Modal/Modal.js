@@ -1,32 +1,76 @@
 import React, { Component } from 'react';
 import './Modal.scss';
+import request from 'superagent';
+
 import Input from '../Input/Input';
-import { Switch, lightGreen
-} from '@material-ui/core';
+import { Switch } from '@material-ui/core';
 import Button from '../Button/Button';
+import SearchInput from '../LocationSearch/SearchInput';
+
+
 
 
 class Modal extends Component {
   state = {
-    name: '', email: '', address: '',
-    subscribe: false,
+    name: '', email: '', 
+    location: null, address: '', postalCode: '',
+    newsletter: false,
+    submitSuccess: false
   }
 
   handleChange = (e, item) => {
     this.setState({ [item]: e.target.value });
   }
-
+  
+  // prevent model from disappearing
   formClick = e => {
     e.stopPropagation();
-    console.log('form clicked')
+  }
+
+  selectLocation = (location, address) => {
+    this.setState({ location, address })
+  }
+
+  signup = () => {
+    const { name, email, location, address, postalCode, newsletter } = this.state;
+    const addarr = address.split(',');
+
+    // get specific address elements
+    const street = addarr.slice(0, 1).toString();
+    const city = addarr.slice(addarr.length -2, addarr.length -1).toString();
+    const country =addarr.slice(addarr.length -1, addarr.length).toString();
+    
+    const data = {
+      action:'signUpAsHost',  // for server
+      eventId: 'Olkkarikekkerit_18', 
+      name,
+      email,
+      location,
+      address,
+      street, city, country, 
+      newsletter
+    }
+    request
+      .post('https://nodedev.gigleapp.com/gig')
+      .send(data)
+      .end((err, res) => {
+        if(err) { console.log(err) };
+        if(res) { 
+          console.log('Successfully registered!')
+          console.log(data)
+          console.log(res) 
+          this.props.submitSuccess();
+        };
+      });
   }
 
   render() {
-    const { name, email, address, subscribe } = this.state;
-    console.log(this.state.subscribe)
+    const { name, email, newsletter } = this.state;
+   
+
     return(
       <div className='modal' onClick={this.props.handleCloseModal}>
-        <div className='form' onClick={this.formClick}>
+        <div className={this.props.formClassName ? this.props.formClassName : 'form'} onClick={this.formClick}>
           <section className='form-content'>
             <h2>Sign up as host</h2>
             <p className='description'>
@@ -43,24 +87,25 @@ class Modal extends Component {
               onChange={(e) => this.handleChange(e, 'email')}
               bottomLabel={<span>We'll continue talking through email after getting in touch with you</span>}
             />
-            <Input
-              value={address}
+
+            <SearchInput
               placeholder='Your address'
-              onChange={(e) => this.handleChange(e, 'address')}
-              bottomLabel={<span>The events are organized in XXYY area</span>}
+              selectLocation={(location, address) => this.selectLocation(location, address)}
             />
+
             <section className='newsletter'>
               <span>All of these is very interesting. I want to stay updated about similar events and happenings with a Gigle newsletter</span>
               <Switch
-                checked={subscribe}
+                checked={newsletter}
                 onChange={e => this.setState({
-                  subscribe: e.target.checked
+                  newsletter: e.target.checked
                 })}
                 color='primary'
               />
             </section>
             <Button
               label='I am interested in hosing a gig'
+              onClick={this.signup}
             />
           </section>
         </div>

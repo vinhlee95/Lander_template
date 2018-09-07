@@ -9,11 +9,12 @@
 
   .form {
     background: #fff;
-    width: 50%;
+    width: 40%;
     position: absolute;
     top: 10vh;
-    left: 25%;
+    left: 30%;
     border-radius: 10px;
+    transition: all .3s;
 
     .form-content {
       width: 90%; 
@@ -44,5 +45,37 @@
     .button {
       padding: 10px 0;
     }
+  }
+}
+
+.form-show {
+  animation: formShow .3s ease-in forwards;
+}
+
+.form-hide {
+  animation: formHide .3s ease-out forwards;
+}
+
+@keyframes formShow {
+  0% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes formHide {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-100%);
   }
 }

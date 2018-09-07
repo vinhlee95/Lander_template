@@ -3,7 +3,7 @@ import './Input.scss';
 
 const Input = (props) => {
   return(
-    <div className='input'>
+    <div className='input' style={props.style}>
       <input
         placeholder={props.placeholder}
         value={props.value}

@@ -14,7 +14,7 @@ class PerformanceCard extends React.Component {
 		
 		let tags=[
 			{type:'duration',title:`${this.props.duration} mins` , id:'tag_1'},
-			{type:'performers',title: this.props.performers, id:'tag_1'},
+			{type:'performers',title: this.props.performers, id:'tag_2'},
 		
 		];
 		

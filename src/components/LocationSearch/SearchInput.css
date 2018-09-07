@@ -1,0 +1,37 @@
+:root {
+  --input-font: 'Raleway', sans-serif !important;
+  --input-border: 1px solid lightgrey;
+}
+
+.searchInput {
+  font-family: var(--input-font);
+  border: none;
+   border-bottom: var(--input-border);
+   padding: 10px 0 10px;
+   font-size: 16px;
+   width: 100%;
+}
+
+.searchInput:focus {
+  outline: none;
+}
+
+.autocompleteDropdown {
+   width: 100%;
+
+}
+
+
+.suggestionItem, .activeSuggestionItem {
+  display: block;
+  width: 100%;
+  cursor: pointer;
+  padding: 10px 0;
+  transition: .3s;
+  border: none;
+  border-bottom: var(--input-border);
+}
+.activeSuggestionItem:hover {
+  background: rgb(236, 232, 232);
+}
+
