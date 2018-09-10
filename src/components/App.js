@@ -56,7 +56,7 @@ class App extends Component {
         <Modal
           handleCloseModal={() => this.setState({ showModal: false })}
           submitSuccess={this.submitSuccess}
-          formClassName={showModal ? 'form form-show' : 'form-hide'}
+          formClassName={showModal ? 'form form-show' : 'form form-hide'}
         />
         : 
         null
