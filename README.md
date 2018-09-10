@@ -1,4 +1,4 @@
-### Lander template
+# Lander template
 
 ```javascript
   npm install
