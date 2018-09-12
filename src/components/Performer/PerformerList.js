@@ -4,12 +4,26 @@ import './PerformerList.scss';
 import { Element } from 'react-scroll';
 
 import Button from '../Button/Button';
+import AudienceSignup from './AudienceSignup';
 
 const URL = 'https://nodedev.gigleapp.com/gig';
 
 class PerformerList extends Component {
 
-  state = { showInfo: null };
+  state = { 
+    showInfo: null,
+    showAudienceSignup: false,
+    showHostSignup: false,
+  };
+
+  signupAsAudience = () => this.setState({ showAudienceSignup: true });
+  signupAsHost = () => this.setState({ showHostSignup: true });
+  closeModal = (type) => {
+    if(type === 'audience') { this.setState({ showAudienceSignup: false })};
+    if(type === 'host') {
+      this.setState({ showHostSignup: false });
+    }
+  }
 
   componentDidMount() {
     request
@@ -26,7 +40,8 @@ class PerformerList extends Component {
   }
 
   render() {
-    const { showInfo } = this.state; console.log(showInfo)
+    const { showInfo, showAudienceSignup, showHostSignup } = this.state;
+    const showHasHost = showInfo && showInfo.status === 'has host'; // true or false
     let performanceList = 
     showInfo 
     ?
@@ -36,13 +51,20 @@ class PerformerList extends Component {
       <p>{showInfo.time}</p>
       <Button
         label={
-          showInfo.status === 'has host'
+          showHasHost
           ?
           'Tule katsomaan'
           :
           'Varaa keikka'
         }
         className='button card-button'
+        onClick={
+          showHasHost
+          ?
+          this.signupAsAudience
+          :
+          this.signupAsHost
+        }
       />
     </div>
     : null
@@ -55,6 +77,18 @@ class PerformerList extends Component {
             {performanceList}
           </div>
         </Element>
+        {
+          showAudienceSignup
+          ?
+          <AudienceSignup
+            area={showInfo.area}
+            time={showInfo.time}
+            closeModal={() => this.closeModal('audience')}
+            childClassName={showAudienceSignup ? 'children children-show' : 'children children-hide'}   
+          />
+          : null
+        }
+
       </div>
     )
   }
