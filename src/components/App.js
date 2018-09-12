@@ -56,14 +56,11 @@ class App extends Component {
       {
         showModal
         ?
-        <Modal
-          handleCloseModal={() => this.setState({ showModal: false })}
-          childClassName={showModal ? 'children children-show' : 'children children-hide'}          
-        >
-          <HostSignUp
-            submitSuccess={this.submitSuccess}
-          />
-        </Modal>
+        <HostSignUp
+          submitSuccess={this.submitSuccess}
+          closeModal={() => this.setState({ showModal: false })}
+          modalShow={showModal}
+        />
         : 
         null
       }

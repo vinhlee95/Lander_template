@@ -85,7 +85,7 @@ class PerformerList extends Component {
             time={showInfo.time}
             performanceName={showInfo.performer.name}
             closeModal={() => this.closeModal('audience')}
-            childClassName={showAudienceSignup ? 'children children-show' : 'children children-hide'}   
+            modalShow={showAudienceSignup}   
           />
           : null
         }

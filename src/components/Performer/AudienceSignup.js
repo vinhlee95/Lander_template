@@ -29,7 +29,7 @@ class AudienceSignup extends Component {
 
   render() {
     const { name, email, participantNumber, newsletter} = this.state;
-    const { area, time,performanceName, childClassName, closeModal, } = this.props;
+    const { area, time,performanceName, modalShow, closeModal, } = this.props;
 
     let participantSelection = (
       <div className='selection'>
@@ -47,7 +47,7 @@ class AudienceSignup extends Component {
     return (
       <Modal
         className='audience-signup-modal modal'
-        childClassName={childClassName}
+        modalShow={modalShow}
         handleCloseModal={closeModal}
       >
         <Form
