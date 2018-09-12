@@ -4,57 +4,44 @@ import PerformanceCard from '../PerformanceCard';
 import './PerformerList.scss';
 import { Element } from 'react-scroll';
 
-const URL = 'https://node.gigleapp.com/search';
+const URL = 'https://nodedev.gigleapp.com/gig';
 
 class PerformerList extends Component {
 
-  state = { products: null };
+  state = { showInfo: null };
 
   componentDidMount() {
     request
       .post(URL)
       .send({
-        action: "getProductList",
-        data: "-KsYlXgMj3S6uDIJCPuO,-KyRuPsRePD02DhR0MzF"
+        mainEvent:"Olkkarikekkerit_18",
+        eventId:"show_151118",
+        action:"getEvent"
       })
       .end((err, res) => {
-        this.setState({ products: res.body.products })
+        const { area, performer, status, time } = res.body.data;
+        this.setState({ showInfo: {area, performer, status, time} });
       })
   }
 
   render() {
-    const { products } = this.state;
+    const { showInfo } = this.state; console.log(showInfo)
     let performanceList = 
-      products
-      ?
-      products.map(product => {
-        const {id, productImage, title, performerData, price, duration, setupTime, performers} = product;
-        return(
-          <PerformanceCard
-            key={id}
-            data={{
-              image:productImage,
-              title,
-              // link={},
-            }}
-            performerName={performerData.name}
-            performerIcon={performerData.icon}
-            price={price}
-            title={title}
-            duration={duration}
-            performers={performers}
-          />
-        )
-      })
-      : null
-                  
-    console.log(this.state.products)
+    showInfo 
+    ?
+    <div className='temporary-performance-card'>
+      <h2>{showInfo.performer.name}</h2>
+      <p>{showInfo.area}</p>
+      <p>{showInfo.time}</p>
+      
+    </div>
+    : null
+              
     return (
       <div className='body-container'>
         <Element name='performer-list'>
           <h1>Esiintyjat</h1>
           <div className='performance-list'>
-            {performanceList}
             {performanceList}
           </div>
         </Element>

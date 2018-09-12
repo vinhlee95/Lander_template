@@ -11,4 +11,14 @@ h1 {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 20px;
+  margin-bottom: 20px;
+
+  .temporary-performance-card {
+    border: .5px solid gray;
+    padding: 10px;
+
+    h2 {
+      margin: 0;
+    }
+  }
 }
