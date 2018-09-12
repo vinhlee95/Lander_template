@@ -5,6 +5,7 @@ import { Element } from 'react-scroll';
 
 import Button from '../Button/Button';
 import AudienceSignup from './AudienceSignup';
+import HostSignUp from '../HostSignUp/HostSignUp';
 
 const URL = 'https://nodedev.gigleapp.com/gig';
 
@@ -75,6 +76,18 @@ class PerformerList extends Component {
           <h1>Esiintyjat</h1>
           <div className='performance-list'>
             {performanceList}
+
+            <div className='temporary-performance-card'>
+              <h2>No host show</h2>
+              <p>Kilo, Espoo</p>
+              <p>01.01.2019 20:00</p>
+              <Button
+                label='Varaa keikka'
+                className='button card-button'
+                onClick={this.signupAsHost}
+              />
+            </div>
+
           </div>
         </Element>
         {
@@ -86,6 +99,16 @@ class PerformerList extends Component {
             performanceName={showInfo.performer.name}
             closeModal={() => this.closeModal('audience')}
             modalShow={showAudienceSignup}   
+          />
+          : null
+        }
+
+        {
+          showHostSignup
+          ?
+          <HostSignUp
+            closeModal={() => this.closeModal('host')}
+            modalShow={showHostSignup}   
           />
           : null
         }
