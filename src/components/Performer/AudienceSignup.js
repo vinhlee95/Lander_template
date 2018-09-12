@@ -1,57 +1,69 @@
 import React, { Component } from 'react';
 import request from 'superagent';
-
-import Input from '../Input/Input';
-import { Switch } from '@material-ui/core';
-import Button from '../Button/Button';
 import Modal from '../Modal/Modal';
+import Form from '../Form/Form';
 
-export default class AudienceSignup extends Component {
+class AudienceSignup extends Component {
   state = {
-    name: '', email: '', audienceNumber: '', newsletter: false
+    name: '', email: '', participantNumber: '', newsletter: false
   }
+
+  inputChange = (e, item) => {
+    this.setState({ [item]: e.target.value });
+  }
+
+  signup = () => {
+    console.log(this.state);
+  }
+
+  renderOptions = (min, max) => {
+    let optionList = [];
+    for(let i = min; i <= max; i++) {
+      optionList.push(i);
+    }
+    return optionList.map(numb => {
+      return <option key={numb} value={numb}>{numb}</option>
+    });
+  }
+
+
   render() {
-    const { name, email, audienceNumber, newsletter} = this.state;
-    const { childClassName, closeModal } = this.props;
+    const { name, email, participantNumber, newsletter} = this.state;
+    const { area, time,performanceName, childClassName, closeModal, } = this.props;
+
+    let participantSelection = (
+      <div className='selection'>
+        <p>Number of participants</p>
+        <select
+        value={participantNumber}
+        onChange={(e) => this.setState({ participantNumber: e.target.value})}
+        >
+          {this.renderOptions(1, 20)}
+        </select>
+      </div>
+     
+    )
+
     return (
       <Modal
+        className='audience-signup-modal modal'
         childClassName={childClassName}
         handleCloseModal={closeModal}
       >
-        <div className='form-content'
-        onClick={this.formClick}>
-          <h2>Come see a show</h2>
-          <p className='description'>
-            
-          </p>
-          <Input
-            value={name}
-            placeholder='Your name'
-            onChange={(e) => this.handleChange(e, 'name')}
-          />
-          <Input
-            value={email}
-            placeholder='Your email'
-            onChange={(e) => this.handleChange(e, 'email')}
-            bottomLabel={<span>We'll continue talking through email after getting in touch with you</span>}
-          />
-
-          <section className='newsletter'>
-            <span>All of these is very interesting. I want to stay updated about similar events and happenings with a Gigle newsletter</span>
-            <Switch
-              checked={newsletter}
-              onChange={e => this.setState({
-                newsletter: e.target.checked
-              })}
-              color='primary'
-            />
-          </section>
-          <Button
-            label='I am interested in hosing a gig'
-            onClick={this.signup}
-          />
-      </div>
+        <Form
+          title='Come to see a show'
+          description={`We welcome you to see ${performanceName} at ${area} on ${time}.`}
+          buttonLabel='Signup for Olkkarikekkerit!'
+          email={email} name={name} newsletter={newsletter}
+          inputChange={(e, item) => this.inputChange(e, item)}
+          signup={this.signup}
+          subscribe={(value) => this.setState({ newsletter: value })}
+          furtherInfo={`We'll ge back to you by email shortly to give you more information and plan the gig.`}
+          additionalFields={participantSelection}
+        />
       </Modal>
     )
   }
 }
+
+export default AudienceSignup;

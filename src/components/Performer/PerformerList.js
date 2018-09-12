@@ -83,6 +83,7 @@ class PerformerList extends Component {
           <AudienceSignup
             area={showInfo.area}
             time={showInfo.time}
+            performanceName={showInfo.performer.name}
             closeModal={() => this.closeModal('audience')}
             childClassName={showAudienceSignup ? 'children children-show' : 'children children-hide'}   
           />

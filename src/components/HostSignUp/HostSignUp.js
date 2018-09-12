@@ -19,11 +19,6 @@ class HostSignUp extends Component {
   handleChange = (e, item) => {
     this.setState({ [item]: e.target.value });
   }
-  
-  // prevent model from disappearing
-  formClick = e => {
-    e.stopPropagation();
-  }
 
   selectLocation = (location, address) => {
     this.setState({ location, address })
@@ -66,8 +61,7 @@ class HostSignUp extends Component {
     const { name, email, newsletter } = this.state;
 
     return (
-      <div className='form-content'
-        onClick={this.formClick}>
+      <div className='form-content'>
           <h2>Sign up as host</h2>
           <p className='description'>
             Up for hosting an unforgettable kids'event at your place? Excellent! Some short info about the event here, after which we'll collect the person's email & address. Rest of the interaction will be handed manually by email
