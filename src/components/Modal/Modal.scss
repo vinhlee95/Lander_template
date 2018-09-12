@@ -7,56 +7,26 @@
   height: 100%;
   z-index: 1000000;
 
-  .form {
+  .children {
     background: #fff;
     width: 40%;
     position: absolute;
     top: 10vh;
     left: 30%;
     border-radius: 10px;
-    transition: all .3s;
-
-    .form-content {
-      width: 90%; 
-      margin: 20px auto;
-
-      h2 {
-        text-align: center;
-        font-size: 30px;
-      }
-      p {
-        line-height: 1.5em;
-        font-weight: 600;
-        margin: 20px 0;
-      }
-
-      .gui-inputFieldContainer {
-        border-top: none;
-      }
-    }
-
-    .newsletter {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 20px 0;
-    }
-
-    .button {
-      padding: 10px 0;
-    }
+    transition: all;
   }
 }
 
-.form-show {
-  animation: formShow .3s ease-in forwards;
+.children-show {
+  animation: childrenShow .3s ease-in forwards;
 }
 
-.form-hide {
-  animation: formHide .3s ease-out forwards;
+.children-hide {
+  animation: childrenHide .3s ease-out forwards;
 }
 
-@keyframes formShow {
+@keyframes childrenShow {
   0% {
     opacity: 0;
     transform: translateY(-100%);
@@ -68,7 +38,7 @@
   }
 }
 
-@keyframes formHide {
+@keyframes childrenHide {
   0% {
     opacity: 1;
     transform: translateY(0);
@@ -79,3 +49,4 @@
     transform: translateY(-100%);
   }
 }
+

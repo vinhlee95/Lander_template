@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import HostSignUp from './HostSignUp/HostSignUp';
+
 import Header from './header/Header';
 import Footer from './footer/Footer';
 import Intro from './Intro/Intro';
 import './App.scss';
 import PerformerList from './Performer/PerformerList';
 import Modal from './Modal/Modal';
+
 import { Snackbar } from '@material-ui/core';
 import { IoIosClose } from 'react-icons/io';
 
@@ -55,9 +58,12 @@ class App extends Component {
         ?
         <Modal
           handleCloseModal={() => this.setState({ showModal: false })}
-          submitSuccess={this.submitSuccess}
-          formClassName={showModal ? 'form form-show' : 'form form-hide'}
-        />
+          childClassName={showModal ? 'children children-show' : 'children children-hide'}          
+        >
+          <HostSignUp
+            submitSuccess={this.submitSuccess}
+          />
+        </Modal>
         : 
         null
       }
