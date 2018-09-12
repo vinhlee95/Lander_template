@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import request from 'superagent';
-import PerformanceCard from '../PerformanceCard';
 import './PerformerList.scss';
 import { Element } from 'react-scroll';
+
+import Button from '../Button/Button';
 
 const URL = 'https://nodedev.gigleapp.com/gig';
 
@@ -33,7 +34,16 @@ class PerformerList extends Component {
       <h2>{showInfo.performer.name}</h2>
       <p>{showInfo.area}</p>
       <p>{showInfo.time}</p>
-      
+      <Button
+        label={
+          showInfo.status === 'has host'
+          ?
+          'Tule katsomaan'
+          :
+          'Varaa keikka'
+        }
+        className='button card-button'
+      />
     </div>
     : null
               
