@@ -35,47 +35,47 @@ class PerformerList extends Component {
         action:"getEvent"
       })
       .end((err, res) => {
-        const { area, performer, status, time } = res.body.data;
-        this.setState({ showInfo: {area, performer, status, time} });
+        
+        console.log(res.body.data)
       })
   }
 
   render() {
     const { showInfo, showAudienceSignup, showHostSignup } = this.state;
-    const showHasHost = showInfo && showInfo.status === 'has host'; // true or false
-    let performanceList = 
-    showInfo 
-    ?
-    <div className='temporary-performance-card'>
-      <h2>{showInfo.performer.name}</h2>
-      <p>{showInfo.area}</p>
-      <p>{showInfo.time}</p>
-      <Button
-        label={
-          showHasHost
-          ?
-          'Tule katsomaan'
-          :
-          'Varaa keikka'
-        }
-        className='button card-button'
-        onClick={
-          showHasHost
-          ?
-          this.signupAsAudience
-          :
-          this.signupAsHost
-        }
-      />
-    </div>
-    : null
+    // const showHasHost = showInfo && showInfo.status === 'has host'; // true or false
+    // let performanceList = 
+    // showInfo 
+    // ?
+    // <div className='temporary-performance-card'>
+    //   <h2>{showInfo.performer.name}</h2>
+    //   <p>{showInfo.area}</p>
+    //   <p>{showInfo.time}</p>
+    //   <Button
+    //     label={
+    //       showHasHost
+    //       ?
+    //       'Tule katsomaan'
+    //       :
+    //       'Varaa keikka'
+    //     }
+    //     className='button card-button'
+    //     onClick={
+    //       showHasHost
+    //       ?
+    //       this.signupAsAudience
+    //       :
+    //       this.signupAsHost
+    //     }
+    //   />
+    // </div>
+    // : null
               
     return (
       <div className='body-container'>
         <Element name='performer-list'>
           <h1>Esiintyjat</h1>
           <div className='performance-list'>
-            {performanceList}
+            {/* {performanceList} */}
 
             <div className='temporary-performance-card'>
               <h2>No host show</h2>
@@ -99,6 +99,7 @@ class PerformerList extends Component {
             performanceName={showInfo.performer.name}
             closeModal={() => this.closeModal('audience')}
             modalShow={showAudienceSignup}   
+            submitSuccess={this.props.submitSuccess}
           />
           : null
         }
@@ -108,7 +109,8 @@ class PerformerList extends Component {
           ?
           <HostSignUp
             closeModal={() => this.closeModal('host')}
-            modalShow={showHostSignup}   
+            modalShow={showHostSignup}  
+            submitSuccess={this.props.submitSuccess}
           />
           : null
         }

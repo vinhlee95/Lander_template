@@ -13,7 +13,9 @@ class AudienceSignup extends Component {
   }
 
   signup = () => {
+    // save data here
     console.log(this.state);
+    this.props.submitSuccess();
   }
 
   renderOptions = (min, max) => {
@@ -60,6 +62,7 @@ class AudienceSignup extends Component {
           subscribe={(value) => this.setState({ newsletter: value })}
           furtherInfo={`We'll ge back to you by email shortly to give you more information and plan the gig.`}
           additionalFields={participantSelection}
+          signup={this.signup}
         />
       </Modal>
     )

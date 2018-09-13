@@ -21,8 +21,8 @@ export default class Header extends React.Component {
 
 	render(){
 		
-		console.log('Rendering header',this.props);
-		console.log('Rendering header, state',this.state);
+		// console.log('Rendering header',this.props);
+		// console.log('Rendering header, state',this.state);
 		let leftMenu, leftMenu_mobile, rightMenu, subMenus, currentSubmenu;
 
 		subMenus=[];

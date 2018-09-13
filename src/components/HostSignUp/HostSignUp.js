@@ -41,18 +41,21 @@ class HostSignUp extends Component {
       street, city, country, 
       newsletter
     }
-    request
-      .post('https://nodedev.gigleapp.com/gig')
-      .send(data)
-      .end((err, res) => {
-        if(err) { console.log(err) };
-        if(res) { 
-          console.log('Successfully registered!')
-          console.log(data)
-          console.log(res) 
-          this.props.submitSuccess();
-        };
-      });
+    // Disable to test snackbar
+    // request
+    //   .post('https://nodedev.gigleapp.com/gig')
+    //   .send(data)
+    //   .end((err, res) => {
+    //     if(err) { console.log(err) };
+    //     if(res) { 
+    //       console.log('Successfully registered!')
+    //       console.log(data)
+    //       console.log(res) 
+    //       this.props.submitSuccess();
+    //     };
+    //   });
+    console.log(data);
+    this.props.submitSuccess();
   }
 
   render() {
@@ -67,10 +70,6 @@ class HostSignUp extends Component {
     )
 
     return (
-      <Modal
-        handleCloseModal={closeModal}
-        modalShow={modalShow}         
-      >
         <Form
           title='Sign up as host'
           description={`Up for hosting an unforgettable kids'event at your place? Excellent! Some short info about the event here, after which we'll collect the person's email & address. Rest of the interaction will be handed manually by email`}
@@ -79,8 +78,8 @@ class HostSignUp extends Component {
           inputChange={(e, item) => this.handleChange(e, item)}
           subscribe={value=> this.setState({ newsletter: value})}
           additionalFields={locationSearch}
+          signup={this.signup}
         />
-      </Modal>
     )
   }
 }

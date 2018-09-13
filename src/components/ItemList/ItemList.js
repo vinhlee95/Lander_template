@@ -22,7 +22,7 @@ export default class ItemList extends Component {
   			eventId:'Olkkarikekkerit18'
 	  	}, reply => {
 	  		console.log('Got reply: ',reply);
-	  		this.setState({items:reply.data.items});
+        this.setState({items:reply.data.items});
 	  	});
   	} else console.warn ('ItemList: No agent provided!');
   	
@@ -30,8 +30,7 @@ export default class ItemList extends Component {
 
   render(){
 
-  	console.log('State: ',this.state);
-  	const { test, items } = this.state;
+  	const { test, items } = this.state; console.log(items)
 
   	if (!items) return null;
 
@@ -51,9 +50,8 @@ export default class ItemList extends Component {
 
 const ListItem = props => {
 
-	console.log('Props: ',props);
+	// console.log('Props: ',props);
  
-
 	return (
 		<ItemContainer onClick={props.onClick}>
 			<ItemImageRow style={{backgroundImage:'url('+props.data.performer.image+')'}} />
