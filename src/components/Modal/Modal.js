@@ -73,7 +73,9 @@ class Modal extends Component {
         </HeroImage>
         <Button
           label='I am interested in hosing a gig'
-          onClick={()=>this.setState({state:'form'})}
+          onClick={()=> {
+            this.setState({state:'form'});
+          }}
         />
       </div>
     )

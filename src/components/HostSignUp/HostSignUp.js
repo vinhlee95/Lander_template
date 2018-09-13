@@ -73,7 +73,7 @@ class HostSignUp extends Component {
         <Form
           title='Sign up as host'
           description={`Up for hosting an unforgettable kids'event at your place? Excellent! Some short info about the event here, after which we'll collect the person's email & address. Rest of the interaction will be handed manually by email`}
-          buttonLabel='I am interested in hosing a gig'
+          buttonLabel='Sign up as a host'
           name={name} email={email} newsletter={newsletter}
           inputChange={(e, item) => this.handleChange(e, item)}
           subscribe={value=> this.setState({ newsletter: value})}
