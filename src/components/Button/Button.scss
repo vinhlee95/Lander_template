@@ -1,20 +1,15 @@
 :root {
-  --button-background: rgb(63, 95, 170);
-  --button-hover-background: rgb(137, 155, 197);
+  --button-background: rgb(65, 93, 156);
+  --button-hover-background: rgb(30, 57, 119);
 }
 
 .button {
-  position: absolute;
-  bottom: 1rem;
-  left: 5%;
+  
   padding: 20px 20px; border-radius: 8px;
   background: var(--button-background);
   color: #fff;
   transition: .3s;
   cursor: pointer;
-  width: 90%;
-  margin: 0 auto;
-
 
   .label-container {
     display: flex;
@@ -28,7 +23,6 @@
     .label {
       font-size: 20px;
       font-weight: 600;
-      margin-bottom: 10px;
     }
   }
 }

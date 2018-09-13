@@ -1,63 +1,120 @@
 import React, { Component } from 'react';
 import request from 'superagent';
-import PerformanceCard from '../PerformanceCard';
 import './PerformerList.scss';
 import { Element } from 'react-scroll';
 
-const URL = 'https://node.gigleapp.com/search';
+import Button from '../Button/Button';
+import AudienceSignup from './AudienceSignup';
+import HostSignUp from '../HostSignUp/HostSignUp';
+
+const URL = 'https://nodedev.gigleapp.com/gig';
 
 class PerformerList extends Component {
 
-  state = { products: null };
+  state = { 
+    showInfo: null,
+    showAudienceSignup: false,
+    showHostSignup: false,
+  };
+
+  signupAsAudience = () => this.setState({ showAudienceSignup: true });
+  signupAsHost = () => this.setState({ showHostSignup: true });
+  closeModal = (type) => {
+    if(type === 'audience') { this.setState({ showAudienceSignup: false })};
+    if(type === 'host') {
+      this.setState({ showHostSignup: false });
+    }
+  }
 
   componentDidMount() {
     request
       .post(URL)
       .send({
-        action: "getProductList",
-        data: "-KsYlXgMj3S6uDIJCPuO,-KyRuPsRePD02DhR0MzF"
+        mainEvent:"Olkkarikekkerit_18",
+        eventId:"show_151118",
+        action:"getEvent"
       })
       .end((err, res) => {
-        this.setState({ products: res.body.products })
+        
+        console.log(res.body.data)
       })
   }
 
   render() {
-    const { products } = this.state;
-    let performanceList = 
-      products
-      ?
-      products.map(product => {
-        const {id, productImage, title, performerData, price, duration, setupTime, performers} = product;
-        return(
-          <PerformanceCard
-            key={id}
-            data={{
-              image:productImage,
-              title,
-              // link={},
-            }}
-            performerName={performerData.name}
-            performerIcon={performerData.icon}
-            price={price}
-            title={title}
-            duration={duration}
-            performers={performers}
-          />
-        )
-      })
-      : null
-                  
-    console.log(this.state.products)
+    const { showInfo, showAudienceSignup, showHostSignup } = this.state;
+    // const showHasHost = showInfo && showInfo.status === 'has host'; // true or false
+    // let performanceList = 
+    // showInfo 
+    // ?
+    // <div className='temporary-performance-card'>
+    //   <h2>{showInfo.performer.name}</h2>
+    //   <p>{showInfo.area}</p>
+    //   <p>{showInfo.time}</p>
+    //   <Button
+    //     label={
+    //       showHasHost
+    //       ?
+    //       'Tule katsomaan'
+    //       :
+    //       'Varaa keikka'
+    //     }
+    //     className='button card-button'
+    //     onClick={
+    //       showHasHost
+    //       ?
+    //       this.signupAsAudience
+    //       :
+    //       this.signupAsHost
+    //     }
+    //   />
+    // </div>
+    // : null
+              
     return (
       <div className='body-container'>
         <Element name='performer-list'>
           <h1>Esiintyjat</h1>
           <div className='performance-list'>
-            {performanceList}
-            {performanceList}
+            {/* {performanceList} */}
+
+            <div className='temporary-performance-card'>
+              <h2>No host show</h2>
+              <p>Kilo, Espoo</p>
+              <p>01.01.2019 20:00</p>
+              <Button
+                label='Varaa keikka'
+                className='button card-button'
+                onClick={this.signupAsHost}
+              />
+            </div>
+
           </div>
         </Element>
+        {
+          showAudienceSignup
+          ?
+          <AudienceSignup
+            area={showInfo.area}
+            time={showInfo.time}
+            performanceName={showInfo.performer.name}
+            closeModal={() => this.closeModal('audience')}
+            modalShow={showAudienceSignup}   
+            submitSuccess={this.props.submitSuccess}
+          />
+          : null
+        }
+
+        {
+          showHostSignup
+          ?
+          <HostSignUp
+            closeModal={() => this.closeModal('host')}
+            modalShow={showHostSignup}  
+            submitSuccess={this.props.submitSuccess}
+          />
+          : null
+        }
+
       </div>
     )
   }

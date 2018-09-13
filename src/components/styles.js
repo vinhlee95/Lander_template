@@ -112,16 +112,19 @@ const HeroImage = styled.div`
 	background:#dddddd;
 	background-size: cover;
 	background-position: top center;
-	height: 40vh;
+	height: 50vh;
 `;
 
 const HeroTitle = styled.div`
-	position:absolute;
-	bottom: .5rem;
+  position:absolute;
+  bottom: 0;
 	width:100%;
 	text-align:center;
 	font-size:1.5rem;
-	color:white;
+  color: black;
+  background-color: rgba(255,255,255, .9);
+  padding: 5px 0;
+  margin-bottom: 5px;
 `;
 
 

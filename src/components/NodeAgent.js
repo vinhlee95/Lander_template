@@ -4,7 +4,7 @@
 
 import request from 'superagent';
 
-const SRV = 'http://localhost:8081'; 
+const SRV = 'https://nodedev.gigleapp.com'; 
 
 export default class NodeAgent {
 
