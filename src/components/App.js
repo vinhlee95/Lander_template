@@ -5,17 +5,20 @@ import Header from './header/Header';
 import Footer from './footer/Footer';
 import Intro from './Intro/Intro';
 import './App.scss';
-import PerformerList from './Performer/PerformerList';
+//import PerformerList from './Performer/PerformerList';
+import ItemList from './ItemList/ItemList';
 import Modal from './Modal/Modal';
 
 import { Snackbar } from '@material-ui/core';
 import { IoIosClose } from 'react-icons/io';
+import NodeAgent from './NodeAgent';
 
 
 class App extends Component {
   state = {
     showModal: false,
-    submitSuccess: false
+    submitSuccess: false,
+    agent: new NodeAgent()
   }
 
 
@@ -27,7 +30,7 @@ class App extends Component {
 
 
   render() {
-    const { showModal, submitSuccess } = this.state;
+    const { showModal, submitSuccess, agent, modalParams } = this.state;
     return (
       <div className="App">
         <Header data={{
@@ -58,15 +61,23 @@ class App extends Component {
         ?
         <HostSignUp
           submitSuccess={this.submitSuccess}
+// <<<<<<< HEAD
           closeModal={() => this.setState({ showModal: false })}
           modalShow={showModal}
+// =======
+//           formClassName={showModal ? 'form form-show' : 'form form-hide'}
+//           modalParams={modalParams}
+// >>>>>>> 0d9178f9c6e36f8cadd82f595538cc52836f7b05
         />
         : 
         null
       }
       
-
-      <PerformerList />
+      <ItemList 
+        agent={agent} 
+        onItemClick={ (itemData) => this.setState({showModal:true, modalParams:itemData})}
+      />
+      
 
       {
         submitSuccess

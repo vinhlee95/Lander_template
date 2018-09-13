@@ -7,12 +7,20 @@
   height: 100%;
   z-index: 1000000;
 
-  .children {
+// <<<<<<< HEAD
+  // .children {
+// =======
+  .form {
+//     position: relative;
+// >>>>>>> 0d9178f9c6e36f8cadd82f595538cc52836f7b05
     background: #fff;
-    width: 40%;
-    position: absolute;
-    top: 10vh;
-    left: 30%;
+    top: 5vh;
+    width: 60vw;
+    min-width:500px;
+    max-width: 600px;
+    height: 90vh;
+    overflow: auto;
+    margin: auto;
     border-radius: 10px;
     transition: all;
   }
