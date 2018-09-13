@@ -12,6 +12,7 @@ import Modal from './Modal/Modal';
 import { Snackbar } from '@material-ui/core';
 import { IoIosClose } from 'react-icons/io';
 import NodeAgent from './NodeAgent';
+import PerformerList from './Performer/PerformerList';
 
 
 class App extends Component {
@@ -72,6 +73,9 @@ class App extends Component {
         : 
         null
       }
+      <PerformerList
+
+      />
       
       <ItemList 
         agent={agent} 

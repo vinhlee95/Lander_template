@@ -6,10 +6,8 @@
   width: 100%;
   height: 100%;
   z-index: 1000000;
+}
 
-// <<<<<<< HEAD
-  // .children {
-// =======
   .form {
 //     position: relative;
 // >>>>>>> 0d9178f9c6e36f8cadd82f595538cc52836f7b05
@@ -24,7 +22,6 @@
     border-radius: 10px;
     transition: all;
   }
-}
 
 .children-show {
   animation: childrenShow .3s ease-in forwards;
