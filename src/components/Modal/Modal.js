@@ -6,7 +6,7 @@ import Input from '../Input/Input';
 import { Switch } from '@material-ui/core';
 import Button from '../Button/Button';
 import SearchInput from '../LocationSearch/SearchInput';
-
+import { HeroImage, HeroTitle } from '../styles';  
 
 
 
@@ -65,14 +65,58 @@ class Modal extends Component {
   }
 
   render() {
-    const { name, email, newsletter } = this.state;
+    const { state, name, email, newsletter } = this.state;
    
+    console.log('MODAL:',this.props);
+    
+    let content;
+    switch (state) {
+      case 'form':
+        content=this.showForm();
+      break;
+
+      default:
+        content=this.showDescription();
+      break;
+    }
 
     return(
       <div className='modal' onClick={this.props.handleCloseModal}>
         <div className={this.props.formClassName ? this.props.formClassName : 'form'} onClick={this.formClick}>
-          <section className='form-content'>
-            <h2>Sign up as host</h2>
+          {content}
+          
+        </div>
+          }
+      </div>
+    )
+  }
+
+  showDescription = () => {
+
+    
+    let backgroundImage, performerName, time;
+    if (this.props.modalParams){
+      backgroundImage= this.props.modalParams.performer.image;
+      performerName = this.props.modalParams.performer.name;
+      time=this.props.modalParams.time;
+  }
+
+    return <div>
+      <HeroImage style={{backgroundImage:'url('+backgroundImage+')'}} >
+              <HeroTitle>{performerName} olkkariisi {time}?</HeroTitle>
+      </HeroImage>
+      <Button
+          label='I am interested in hosing a gig'
+          onClick={()=>this.setState({state:'form'})}
+        />
+    </div>
+  }
+
+  showForm = () => {
+    const { name, email, newsletter } = this.state;
+    return <div>
+      <section className='form-content'>
+            
             <p className='description'>
               Up for hosting an unforgettable kids'event at your place? Excellent! Some short info about the event here, after which we'll collect the person's email & address. Rest of the interaction will be handed manually by email
             </p>
@@ -108,10 +152,10 @@ class Modal extends Component {
               onClick={this.signup}
             />
           </section>
-        </div>
-      </div>
-    )
+    </div>
+
   }
+
 }
 
 export default Modal;

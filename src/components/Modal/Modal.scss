@@ -8,11 +8,15 @@
   z-index: 1000000;
 
   .form {
+    position: relative;
     background: #fff;
-    width: 40%;
-    position: absolute;
-    top: 10vh;
-    left: 30%;
+    top: 5vh;
+    width: 60vw;
+    min-width:500px;
+    max-width: 600px;
+    height: 90vh;
+    overflow: auto;
+    margin: auto;
     border-radius: 10px;
     transition: all .3s;
 
