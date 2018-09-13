@@ -1,31 +1,29 @@
 import React, { Component } from 'react';
-import HostSignUp from './HostSignUp/HostSignUp';
-
 import Header from './header/Header';
 import Footer from './footer/Footer';
 import Intro from './Intro/Intro';
 import './App.scss';
-//import PerformerList from './Performer/PerformerList';
-import ItemList from './ItemList/ItemList';
+import ItemList from './ItemList/ItemList'
 import Modal from './Modal/Modal';
 
 import { Snackbar } from '@material-ui/core';
 import { IoIosClose } from 'react-icons/io';
 import NodeAgent from './NodeAgent';
-import PerformerList from './Performer/PerformerList';
 
 
 class App extends Component {
   state = {
     showModal: false,
     submitSuccess: false,
-    agent: new NodeAgent()
+    agent: new NodeAgent(),
+    modalParams: null,
   }
 
 
   submitSuccess = () => {
     this.setState({ showModal: false, submitSuccess: true });
   }
+  closeModal = () => this.setState({ showModal: false });
 
   hideSnackbar = () => this.setState({ submitSuccess: false });
 
@@ -60,51 +58,25 @@ class App extends Component {
       {
         showModal
         ?
-        <HostSignUp
-          submitSuccess={this.submitSuccess}
-// <<<<<<< HEAD
-          closeModal={() => this.setState({ showModal: false })}
+        <Modal 
           modalShow={showModal}
-// =======
-//           formClassName={showModal ? 'form form-show' : 'form form-hide'}
-//           modalParams={modalParams}
-// >>>>>>> 0d9178f9c6e36f8cadd82f595538cc52836f7b05
-        />
+          handleCloseModal={this.closeModal}
+          state='showDescription'
+          modalParams={modalParams}
+           >
+        </Modal>
         : 
         null
       }
-      <PerformerList
-
-      />
       
       <ItemList 
         agent={agent} 
-        onItemClick={ (itemData) => this.setState({showModal:true, modalParams:itemData})}
+        onItemClick={ (itemData) => {
+          console.log(itemData)
+          this.setState({showModal:true, modalParams:itemData});
+        }}
       />
-      
 
-      {
-        submitSuccess
-        ?
-        <Snackbar
-          open={submitSuccess}
-          // autoHideDuration={2000}
-          onClose={this.hideSnackbar}
-          message={
-            <span className='snackbar-message'>
-              Congratulations! You have successfully registered as a host!
-            </span>}
-          action={
-            <IoIosClose 
-              color='red' size={30} 
-              onClick={this.hideSnackbar}
-              style={{ cursor: 'pointer'}} 
-            />
-          }
-          className='snackbar'
-        />
-        : null
-      }
 
       <Footer 
 					data={{
