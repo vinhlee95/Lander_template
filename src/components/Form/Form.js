@@ -8,7 +8,7 @@ export default class Form extends Component {
   
   render() {
     const { 
-      title, description, buttonLabel,
+      title, description, buttonLabel, loading, error, errorMessage,
       name, email, newsletter, 
       inputChange, subscribe, signup, furtherInfo,
       additionalFields
@@ -23,14 +23,32 @@ export default class Form extends Component {
             placeholder='Your name'
             onChange={(e) => inputChange(e, 'name')}
           />
+          {
+            errorMessage && errorMessage.name
+            ?
+            <p className='error-message'>{errorMessage.name}</p>
+            : null
+          }
           <Input
             value={email}
             placeholder='Your email'
             onChange={(e) => inputChange(e, 'email')}
             bottomLabel={<span>We'll continue talking through email after getting in touch with you</span>}
           />
+          {
+            errorMessage && errorMessage.email
+            ?
+            <p className='error-message'>{errorMessage.email}</p>
+            : null
+          }
 
           {additionalFields}
+          {
+            errorMessage && errorMessage.address
+            ?
+            <p className='error-message'>{errorMessage.address}</p>
+            : null
+          }
 
           <section className='newsletter'>
             <span>All of these is very interesting. I want to stay updated about similar events and happenings with a Gigle newsletter</span>
@@ -40,6 +58,20 @@ export default class Form extends Component {
               color='primary'
             />
           </section>
+          {
+            loading
+            ?
+            <section className='loading-container'>
+              {loading}
+            </section>
+            : null
+          }
+          {
+            error
+            ?
+            error
+            : null
+          }
           <Button
             label={buttonLabel}
             onClick={signup}

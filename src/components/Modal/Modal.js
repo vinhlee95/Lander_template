@@ -29,7 +29,6 @@ class Modal extends Component {
   render() {
     const { state, name, time, description } = this.state;
     const { className, modalShow } = this.props;
-    console.log(description)
 
     // render modal content conditionally
     let content;

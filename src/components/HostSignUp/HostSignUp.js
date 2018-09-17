@@ -4,14 +4,16 @@ import SearchInput from '../LocationSearch/SearchInput';
 
 import './HostSignUp.scss';
 import Form from '../Form/Form';
-import Modal from '../Modal/Modal';
+import MDSpinner from 'react-md-spinner';
 
 class HostSignUp extends Component {
   state = {
     name: '', email: '', 
     location: null, address: '', 
     newsletter: false,
-    submitSuccess: false
+    submitSuccess: false,
+    loading: false,
+    errorMessage: {},
   }
 
   handleChange = (e, item) => {
@@ -23,7 +25,21 @@ class HostSignUp extends Component {
   }
 
   signup = () => {
-    const { name, email, location, address, newsletter } = this.state;
+    this.setState({ loading: true });
+    const { name, email, location, address, newsletter, errorMessage } = this.state;
+
+    // Error handling
+    const obj = {name, email, address}; 
+    const empty = Object.keys(obj).filter(key => obj[key] === '');
+
+    let newErrorMessage = {};
+    empty.forEach(key => {
+      newErrorMessage = {
+        ...newErrorMessage,
+        [key]: `Please fill in your ${key}`
+      }
+      this.setState({ errorMessage: newErrorMessage})
+    })
     const addarr = address.split(',');
 
     // get specific address elements
@@ -32,35 +48,36 @@ class HostSignUp extends Component {
     const country =addarr.slice(addarr.length -1, addarr.length).toString();
     
     const data = {
-      action:'signUpAsHost',  // for server
-      eventId: 'Olkkarikekkerit_18', 
+      mainEvent:'Olkkarikekkerit_18',
+      eventId:'gig_151118',
+      action:'signUpAsHost',
       name,
       email,
       location,
       address,
       street, city, country, 
-      newsletter
+      newsletter,
+      error: '',
     }
     // Disable to test snackbar
-    // request
-    //   .post('https://nodedev.gigleapp.com/gig')
-    //   .send(data)
-    //   .end((err, res) => {
-    //     if(err) { console.log(err) };
-    //     if(res) { 
-    //       console.log('Successfully registered!')
-    //       console.log(data)
-    //       console.log(res) 
-    //       this.props.submitSuccess();
-    //     };
-    //   });
-    console.log(data);
-    this.props.submitSuccess();
+    request
+      .post('https://nodedev.gigleapp.com/gig')
+      .send(data)
+      .end((err, res) => {
+        if(err) { console.log(err) };
+        if(res && res.body.success) { 
+          console.log('Successfully registered!');
+          this.props.submitSuccess();
+        };
+        if(res && res.body.error) {
+          this.setState({ error: 'Please make sure that you have filled in all necessary information above', loading: false })
+        }
+      });
   }
 
   render() {
-    const { name, email, newsletter } = this.state;
-    const { closeModal, modalShow } = this.props;
+    const { name, email, newsletter, loading, error, errorMessage } = this.state; 
+    console.log(errorMessage)
 
     let locationSearch = (
       <SearchInput
@@ -80,6 +97,20 @@ class HostSignUp extends Component {
           subscribe={value=> this.setState({ newsletter: value})}
           additionalFields={locationSearch}
           signup={this.signup}
+          loading={
+            loading
+            ?
+            <MDSpinner size={40} singleColor='green' className='spinner' />
+            :
+            null
+          }
+          error={
+            error
+            ?
+            <p style={{ textAlign: 'center', color: 'red'}}>{error}</p>
+            : null
+          }
+          errorMessage={errorMessage}
         />
       </div>
     )
