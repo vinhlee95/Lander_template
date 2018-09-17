@@ -16,10 +16,10 @@ class Modal extends Component {
     super(props);
     const { state, modalParams } = this.props;
     const { performer, time } = modalParams;
-    const { name } = performer;
+    const { name, description } = performer;
     this.state = {
       state,
-      name, time
+      name, description, time
     }
   }
 
@@ -27,13 +27,15 @@ class Modal extends Component {
   submitSuccess = () => this.setState({ state: 'submitSuccess' })
   
   render() {
-    const { state, name, time } = this.state;
+    const { state, name, time, description } = this.state;
     const { className, modalShow } = this.props;
+    console.log(description)
 
     // render modal content conditionally
     let content;
     switch (state) {
       case 'form':
+        console.log('show signup form');
         content=this.showSignupForm();
       break;
 
@@ -41,19 +43,18 @@ class Modal extends Component {
         content=this.showSuccess();
       break;
 
-      default:
+      case 'showDescription':
+        console.log('show description');
         content=this.showDescription();
       break;
+
+      default:
+        content=null
     }
 
     return(
       <div className={className ? className : 'modal'} onClick={this.props.handleCloseModal}>
-        <section 
-          className={modalShow ? 'children children-show' : 'children children-hide'} 
-          onClick={e => e.stopPropagation()}
-        >
-          {content}
-        </section>
+        {content}
       </div>
     )
   }
@@ -67,12 +68,13 @@ class Modal extends Component {
   }
 
     return (
-      <div className='description-modal'>
+      <div className='description-modal' onClick={(e) => e.stopPropagation()} >
         <HeroImage style={{backgroundImage:'url('+backgroundImage+')'}} >
           <HeroTitle>{performerName} olkkariisi {time}?</HeroTitle>
         </HeroImage>
+        <div className='description' dangerouslySetInnerHTML={{__html: this.state.description}} />
         <Button
-          label='I am interested in hosing a gig'
+          label='Host this show'
           onClick={()=> {
             this.setState({state:'form'});
           }}
@@ -83,10 +85,12 @@ class Modal extends Component {
 
   showSignupForm = () => {
     const { name, email, newsletter } = this.state;
+    console.log('signup form showed')
     return (
-      <HostSignUp
-        submitSuccess={this.submitSuccess}
-      />
+        <HostSignUp
+          submitSuccess={this.submitSuccess}
+          formClick={e => e.stopPropagation()}
+        />
     )
   }
 

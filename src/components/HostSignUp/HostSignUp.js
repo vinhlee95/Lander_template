@@ -70,6 +70,7 @@ class HostSignUp extends Component {
     )
 
     return (
+      <div onClick={this.props.formClick}>
         <Form
           title='Sign up as host'
           description={`Up for hosting an unforgettable kids'event at your place? Excellent! Some short info about the event here, after which we'll collect the person's email & address. Rest of the interaction will be handed manually by email`}
@@ -80,6 +81,7 @@ class HostSignUp extends Component {
           additionalFields={locationSearch}
           signup={this.signup}
         />
+      </div>
     )
   }
 }
