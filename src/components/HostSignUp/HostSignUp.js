@@ -5,6 +5,7 @@ import SearchInput from '../LocationSearch/SearchInput';
 import './HostSignUp.scss';
 import Form from '../Form/Form';
 import MDSpinner from 'react-md-spinner';
+import _ from 'lodash';
 
 class HostSignUp extends Component {
   state = {
@@ -12,21 +13,36 @@ class HostSignUp extends Component {
     location: null, address: '', 
     newsletter: false,
     submitSuccess: false,
-    loading: false,
+    loading: false, error:'',
     errorMessage: {},
   }
 
   handleChange = (e, item) => {
-    this.setState({ [item]: e.target.value });
+    this.setState({ 
+      [item]: e.target.value, 
+      error: '',
+      errorMessage: {
+        ...this.state.errorMessage,
+        [item]: ''
+      }
+    });
   }
 
   selectLocation = (location, address) => {
-    this.setState({ location, address })
+    this.setState({ location, address });
+    if(address !== '') {
+      this.setState({
+        errorMessage: {
+          ...this.state.errorMessage,
+          address: ''
+        }
+      })
+    }
   }
 
   signup = () => {
     this.setState({ loading: true });
-    const { name, email, location, address, newsletter, errorMessage } = this.state;
+    const { name, email, location, address, newsletter } = this.state;
 
     // Error handling
     const obj = {name, email, address}; 
@@ -70,6 +86,8 @@ class HostSignUp extends Component {
           this.props.submitSuccess();
         };
         if(res && res.body.error) {
+          console.log(data)
+          console.log(res.body.error)
           this.setState({ error: 'Please make sure that you have filled in all necessary information above', loading: false })
         }
       });
@@ -77,12 +95,12 @@ class HostSignUp extends Component {
 
   render() {
     const { name, email, newsletter, loading, error, errorMessage } = this.state; 
-    console.log(errorMessage)
 
     let locationSearch = (
       <SearchInput
         placeholder='Your address'
         selectLocation={(location, address) => this.selectLocation(location, address)}
+        disabled={loading}
       />
     )
 
@@ -111,6 +129,7 @@ class HostSignUp extends Component {
             : null
           }
           errorMessage={errorMessage}
+          inputDisabled={loading}
         />
       </div>
     )

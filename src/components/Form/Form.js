@@ -10,7 +10,7 @@ export default class Form extends Component {
     const { 
       title, description, buttonLabel, loading, error, errorMessage,
       name, email, newsletter, 
-      inputChange, subscribe, signup, furtherInfo,
+      inputDisabled, inputChange, subscribe, signup, furtherInfo,
       additionalFields
     } = this.props;
     return (
@@ -22,6 +22,7 @@ export default class Form extends Component {
             value={name}
             placeholder='Your name'
             onChange={(e) => inputChange(e, 'name')}
+            disabled={inputDisabled}
           />
           {
             errorMessage && errorMessage.name
@@ -34,6 +35,7 @@ export default class Form extends Component {
             placeholder='Your email'
             onChange={(e) => inputChange(e, 'email')}
             bottomLabel={<span>We'll continue talking through email after getting in touch with you</span>}
+            disabled={inputDisabled}
           />
           {
             errorMessage && errorMessage.email

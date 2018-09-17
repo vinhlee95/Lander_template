@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
 import './Modal.scss';
-// <<<<<<< HEAD
-// =======
-import request from 'superagent';
 import Button from '../Button/Button';
 import { HeroImage, HeroTitle } from '../styles';  
 import HostSignUp from '../HostSignUp/HostSignUp';
 import { FaCheck } from 'react-icons/fa';
 
 
-// >>>>>>> 0d9178f9c6e36f8cadd82f595538cc52836f7b05
 
 class Modal extends Component {
   constructor(props) {
@@ -27,8 +23,8 @@ class Modal extends Component {
   submitSuccess = () => this.setState({ state: 'submitSuccess' })
   
   render() {
-    const { state, name, time, description } = this.state;
-    const { className, modalShow } = this.props;
+    const { state } = this.state;
+    const { className } = this.props;
 
     // render modal content conditionally
     let content;

@@ -35,6 +35,7 @@ class SearchInput extends React.Component {
                   { ...getInputProps({}) }
                   placeholder={this.props.placeholder}
                   className='searchInput'
+                  disabled={this.props.disabled}
                />
                <div className='autocompleteDropdown' >
                   {suggestions.map(suggestion => {

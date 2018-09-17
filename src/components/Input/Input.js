@@ -9,6 +9,7 @@ const Input = (props) => {
         value={props.value}
         onChange={props.onChange}
         className={props.className}
+        disabled={props.disabled}
       />
       {
         props.bottomLabel
