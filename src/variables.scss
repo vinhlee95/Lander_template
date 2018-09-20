@@ -1,0 +1,322 @@
+/* 
+	Gigle base styles
+	v0.5 
+*/
+
+
+/* Fonts */
+
+$base-font: 'Raleway';
+
+/* colors */
+$white: white;
+$red:#b76550;
+$green:#86b554;
+$orange:#d9781d;
+$light-green:#EAF0DE;
+$green-text: #668a40;
+$gray:#cccccc;
+$light-gray:#eeeeee;
+$dark:#353535;
+$black: #222222;
+$violet: #8D41C5;
+
+
+$maxWidth:1200px;
+$topMargin:6vmax;
+$topMargin-desktop:50px;
+$basicBorder: 1px solid $gray;
+$validBorder: 1px solid $green;
+
+$mobileBig: 2.5vmax;
+$desktopBig: 1.1em;
+
+$basicBorder: 1px solid $gray;
+$basicRadius: 0.5rem;
+$basicPadding: .7rem;
+
+/* Media */
+
+$tablet-width: 768px;
+$desktop-width: 1024px;
+
+
+@mixin notMobile {
+  @media (min-width: #{$tablet-width})  {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: #{$tablet-width - 1px})  {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$tablet-width}) and (max-width: #{$desktop-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$desktop-width}) {
+    @content;
+  }
+}
+
+@mixin flex($justify:center, $align:center) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+
+@mixin borderShadow($inset:1px,$color:$green) {
+	-webkit-box-shadow: inset 0px 0px 0px $inset $color;
+	-moz-box-shadow: inset 0px 0px 0px $inset $color;
+	box-shadow: inset 0px 0px 0px $inset $color;
+}
+
+@mixin buttonAnimation($base-color) {
+	
+	@include notMobile() {
+		&:hover {
+			cursor: pointer;
+			background: darken( $base-color, 10% )
+		}
+		
+		&:active {
+			background: darken( $base-color, 30% )
+		}
+		
+		transition: all .3s ease;
+	}
+	
+	
+}
+
+
+
+
+
+/* Transitions */
+
+@mixin transition($in) {
+	transition:$in;
+	-webkit-transition:$in;
+	-moz-transition:$in;
+	-o-transition:$in;
+	-ms-transition:$in;
+}
+@mixin transform($in) {
+	transform:$in;
+	-webkit-transform:$in;
+	-moz-transform:$in;
+	-o-transform:$in;
+	-ms-transform:$in;
+}
+@mixin animation($in) {
+	animation:$in;
+	-webkit-animation:$in;
+	-moz-animation:$in;
+	-o-animation:$in;
+	-ms-animation:$in;
+}
+
+@mixin inputBorder($color, $width:1px) {
+	-webkit-box-shadow:inset 0 0 0 $width $color;
+    -moz-box-shadow:inset 0 0 0 $width $color;
+    box-shadow:inset 0 0 0 $width $color;
+} 
+
+@mixin smallbounce() {
+	@keyframes fontbulger {
+	  0% {
+	    transform: translateY(0)
+	  }
+	  50% {
+	   transform: translateY(-5px)
+	  }
+	  100% {
+	    transform: translateY(0)
+	  }
+	}
+
+	animation: fontbulger 1s infinite ease-out;
+}
+
+
+html, body, div, p {
+	font-size: 100%;
+}
+
+
+
+.gigle-mobile-only {
+	display: none;
+	@include mobile() {
+		display: block;
+	}
+}
+
+.blockquote {
+	font-size: 1rem;
+	
+	&.short {
+		font-size: 1.3rem;
+	}
+	
+	&.medium {
+		font-size: 1rem;
+	}
+	
+	&.long {
+		font-size: .8rem;
+	}
+}
+
+.gigle-centered {
+	@include flex();
+}
+
+.gigle-hsplit {
+	display: flex;
+}
+
+.gigle-relativePosition {
+	position:relative;
+}
+
+.gigle-green {
+	color: $green;
+}
+
+.gigle-inline {
+	display: inline-block;
+	padding: 0 .5rem;
+}
+
+.gigle-centered-bg {
+	width:100%;
+	height:100%;
+	background-size:cover;
+	background-position: center center;
+
+}
+
+.gigle-bottomstrip {
+	position:fixed;
+	left: 0;
+	bottom:0;
+	width:100%;
+	min-height:8vh;
+	background: $white;
+	z-index: 90000000;
+	border-top: 1px $gray solid;
+	
+	&.centered {
+		@include flex();
+	}
+	
+	&.nonsticky {
+		position:relative;
+		transform: translateY(-100%);
+	}
+	
+}
+
+.gigle-row {
+	@include flex();
+	flex-wrap: wrap;
+	width: 100%;
+	justify-content: space-between;
+	align-items: flex-start;
+	
+}
+
+.gigle-col {
+	flex: 1;
+	padding: 1rem;
+	
+	&.w2 {
+		flex:2
+	}
+	
+	&.w3 {
+		flex:3
+	}
+	
+}
+
+.gigle-loader-overlay {
+	
+	display:none;
+	
+	&.visible {
+		position: fixed;
+		top: 0;
+		left: 0;	
+		display:block;
+		width: 100%;
+		height: 100%;
+		@include flex();
+		background: rgba($white,.7);
+		z-index: 900000;
+		font-size: 1.5rem;
+	}
+}
+
+.gigle-header-icon {
+	font-size: 1.8rem;
+	margin: 0 .5rem 0 0;
+	color: $violet;
+}
+
+.gigle-dropzone-container {
+	width: 100%;
+	
+	@include flex();
+}
+.gigle-dropzone {
+	@include flex();
+	border: 1px $gray dashed;
+	margin: 1rem;
+	width: 80%;
+	max-width: 500px;
+	max-height:25vh;
+	padding: 2rem;
+	
+	@include buttonAnimation (rgba($green,.2));
+}
+
+.gigle-dropzone-reset {
+	width: 100%;
+	min-height:25 vh;
+	@include flex();
+}
+
+
+.gigle-dropzone-image {
+	width: 80%;
+    min-width: 80%;
+    height: 25vh;
+    min-height:25vh;
+	background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+	
+    
+}
+
+.gigle-h1 {
+	font-size: 1.8rem;
+	padding: 1rem 0;
+}
+
+.gigle-h2 {
+	font-size: 1.3rem;
+	padding: 1rem 0;
+	width: 100%;
+	text-align: left;
+}

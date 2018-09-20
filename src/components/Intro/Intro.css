@@ -1,0 +1,46 @@
+:root {
+  --intro-gradient: linear-gradient(
+    rgba(245, 241, 241, 0.3),
+    rgba(231, 220, 220, 0.7)
+  ); }
+
+.intro-container {
+  height: 60vh;
+  width: 100%;
+  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  z-index: 1000;
+  background: url("../../images/intro_desktop.jpg");
+  background-size: cover;
+  background-position: center; }
+  .intro-container h1 {
+    color: #fff;
+    margin: 15px auto;
+    font-size: 45px;
+    text-align: center; }
+  .intro-container .see-more-button {
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform .3s; }
+    .intro-container .see-more-button span {
+      font-size: 25px;
+      font-weight: 600;
+      margin-left: 5px; }
+  .intro-container .see-more-button:hover {
+    transform: scale(1.2);
+    color: #f0e8e8; }
+  .intro-container .button-group {
+    width: 70%;
+    margin: 40px auto;
+    display: flex;
+    justify-content: center; }
+    .intro-container .button-group .button {
+      margin: 0 20px; }
+
+/*# sourceMappingURL=Intro.css.map */

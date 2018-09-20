@@ -1,0 +1,24 @@
+.form-content {
+  width: 90%;
+  margin: 20px auto; }
+  .form-content h2 {
+    text-align: center;
+    font-size: 30px;
+    margin-top: 0; }
+  .form-content p {
+    line-height: 1.5em;
+    font-weight: 600;
+    margin: 20px 0; }
+  .form-content .gui-inputFieldContainer {
+    border-top: none; }
+
+.newsletter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0; }
+
+.button {
+  padding: 10px 0; }
+
+/*# sourceMappingURL=HostSignUp.css.map */

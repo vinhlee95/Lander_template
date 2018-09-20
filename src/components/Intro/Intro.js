@@ -25,15 +25,7 @@ export default class Intro extends Component {
         </Link>
 
         <div className='button-group'>
-          <Button
-            label='Ilmoittaudu olkkariksi'
-            subLabel='Kutsu essintyjä jä yleisöä kotikeikalle'
-            onClick={this.props.handleOpenModal}
-          />
-          <Button
-            label='Tule keikalle'
-            subLabel='Käy kylässä ja nauti lastenesityksestä'
-          />
+          
         </div>
       </div>
     )

@@ -18,11 +18,61 @@ const media = Object.keys(sizes).reduce((acc, label) => {
   return acc
 }, {})
 
+const Title = styled.div`
+	width: 100%;
+	padding: 3rem 0 1rem 0;
+	text-align: center;
+	font-size: 2rem;
+	font-weight: bold;	
+`;
+
+const Subtitle = styled.div`
+	width: 100%;
+	margin-top: -1rem;
+	margin-bottom: 1rem;
+	text-align: center;
+	font-size: 1.2rem;
+	
+`;
+
+const Ingress = styled.p`
+	font-size: 1.1rem;
+	font-weight: 800;
+	
+`;
+
+const BgImage = styled.div`
+	background:#dddddd;
+	background-size: cover;
+	background-position: top center;
+	
+`;
+
+const InfoSection= styled.div`
+	position:relative;
+	display: flex;
+	width: 90%;
+	margin: 0 auto;
+	
+`;
+
+const InfoSectionImage= styled(BgImage)`
+	position:relative;
+	flex: 1;
+	margin: 2rem;
+`;
+
+const InfoSectionText= styled.div`
+	position:relative;
+	flex: 1;
+	padding: 2rem;
+`;
+
 const ListContainer = styled.div`
 	position:relative;
 	width:90%;
 
-	margin: 2rem auto;
+	margin: 0 auto;
   	display: flex;
   	flex-wrap: wrap;
   	justify-content: center;
@@ -106,6 +156,7 @@ const ItemButton = styled.div`
 `;
 
 
+
 const HeroImage = styled.div`
 	position:relative;
 	border-radius: 10px 10px 0 0;
@@ -127,8 +178,18 @@ const HeroTitle = styled.div`
   margin-bottom: 5px;
 `;
 
+const ModalDescription = styled.div`
+
+  padding: 2rem;
+`;
+
+
+
 
 export {
+	Title,
+	Subtitle,
+	Ingress,
 	ItemContainer,
 	ItemImageRow,
 	ItemDescriptionRow,
@@ -138,5 +199,8 @@ export {
 	ItemButton,
 	HeroImage,
 	HeroTitle,
-	
+	ModalDescription,
+	InfoSection,
+	InfoSectionImage, 
+	InfoSectionText 
 }

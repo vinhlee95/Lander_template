@@ -1,0 +1,32 @@
+:root {
+  --default-border: .5px solid gray; }
+
+h1 {
+  text-align: center;
+  font-size: 45px; }
+
+.performance-list {
+  width: 80%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 20px;
+  margin-bottom: 20px; }
+  .performance-list .temporary-performance-card {
+    border: var(--default-border);
+    padding: 10px; }
+    .performance-list .temporary-performance-card h2 {
+      margin: 0; }
+    .performance-list .temporary-performance-card .button {
+      padding: 10px 10px; }
+
+.audience-signup-modal .selection p {
+  margin-bottom: 5px; }
+.audience-signup-modal .selection select {
+  font-size: 18px;
+  border: none;
+  border-bottom: var(--default-border); }
+.audience-signup-modal .selection select:focus {
+  outline: none; }
+
+/*# sourceMappingURL=PerformerList.css.map */

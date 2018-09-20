@@ -4,7 +4,7 @@ import './Modal.scss';
 // =======
 import request from 'superagent';
 import Button from '../Button/Button';
-import { HeroImage, HeroTitle } from '../styles';  
+import { HeroImage, HeroTitle, ModalDescription } from '../styles';  
 import HostSignUp from '../HostSignUp/HostSignUp';
 import { FaCheck } from 'react-icons/fa';
 
@@ -59,11 +59,12 @@ class Modal extends Component {
   }
 
   showDescription = () => {
-    let backgroundImage, performerName, time;
+    let backgroundImage, performerName, time, description;
     if (this.props.modalParams){
       backgroundImage= this.props.modalParams.performer.image;
       performerName = this.props.modalParams.performer.name;
       time=this.props.modalParams.time;
+      description=this.props.modalParams.performer.description;
   }
 
     return (
@@ -71,8 +72,9 @@ class Modal extends Component {
         <HeroImage style={{backgroundImage:'url('+backgroundImage+')'}} >
           <HeroTitle>{performerName} olkkariisi {time}?</HeroTitle>
         </HeroImage>
+        <ModalDescription dangerouslySetInnerHTML={this.innerHtml(description)} />
         <Button
-          label='I am interested in hosing a gig'
+          label='I am interested in hosting a gig'
           onClick={()=>this.setState({state:'form'})}
         />
       </div>
@@ -98,6 +100,8 @@ class Modal extends Component {
       </div>
     )
   }
+
+  innerHtml = (html) => { return { __html: html }; };
 
 }
 

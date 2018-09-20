@@ -38,7 +38,8 @@ export default class ItemList extends Component {
   		<ListContainer>
   			{ 
   				Object.keys(items).map( key => {
-  					return <ListItem data={ items[key] } onClick={ ()=>this.props.onItemClick(items[key])} />
+            let itemData=items[key];
+  					return <ListItem data={ itemData } onClick={ ()=>this.props.onItemClick(itemData)} />
   				})
   			}
   		</ListContainer>
@@ -50,7 +51,22 @@ export default class ItemList extends Component {
 
 const ListItem = props => {
 
-	// console.log('Props: ',props);
+	console.log('Props: ',props);
+  let label;
+  let status = props.data.status.value || 0;
+  switch (status) {
+    case 1:
+      label='Tule keikalle';
+    break;
+
+    case 2:
+      label='Täynnä';
+    break;
+
+    default:
+      label='Tilaa keikka';
+    break;
+  }
  
 	return (
 		<ItemContainer onClick={props.onClick}>
@@ -59,7 +75,7 @@ const ListItem = props => {
 			<ItemDescriptionRow>
 				<ItemTitle>{props.data.performer.name}</ItemTitle>
 				<ItemDescription>{props.data.time}</ItemDescription>
-				<ItemButton>Jepa</ItemButton>
+				<ItemButton>{label}</ItemButton>
 			</ItemDescriptionRow>
 		</ItemContainer>
 	);

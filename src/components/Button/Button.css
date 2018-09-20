@@ -1,0 +1,25 @@
+:root {
+  --button-background: rgb(65, 93, 156);
+  --button-hover-background: rgb(30, 57, 119); }
+
+.button {
+  padding: 20px 20px;
+  border-radius: 8px;
+  background: var(--button-background);
+  color: #fff;
+  transition: .3s;
+  cursor: pointer; }
+  .button .label-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; }
+    .button .label-container span {
+      text-align: center; }
+    .button .label-container .label {
+      font-size: 20px;
+      font-weight: 600; }
+
+.button:hover {
+  background: var(--button-hover-background); }
+
+/*# sourceMappingURL=Button.css.map */
