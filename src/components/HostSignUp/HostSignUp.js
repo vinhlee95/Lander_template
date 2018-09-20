@@ -4,26 +4,58 @@ import SearchInput from '../LocationSearch/SearchInput';
 
 import './HostSignUp.scss';
 import Form from '../Form/Form';
-import Modal from '../Modal/Modal';
+import MDSpinner from 'react-md-spinner';
+import _ from 'lodash';
 
 class HostSignUp extends Component {
   state = {
     name: '', email: '', 
     location: null, address: '', 
     newsletter: false,
-    submitSuccess: false
+    submitSuccess: false,
+    loading: false, error:'',
+    errorMessage: {},
   }
 
   handleChange = (e, item) => {
-    this.setState({ [item]: e.target.value });
+    this.setState({ 
+      [item]: e.target.value, 
+      error: '',
+      errorMessage: {
+        ...this.state.errorMessage,
+        [item]: ''
+      }
+    });
   }
 
   selectLocation = (location, address) => {
-    this.setState({ location, address })
+    this.setState({ location, address });
+    if(address !== '') {
+      this.setState({
+        errorMessage: {
+          ...this.state.errorMessage,
+          address: ''
+        }
+      })
+    }
   }
 
   signup = () => {
+    this.setState({ loading: true });
     const { name, email, location, address, newsletter } = this.state;
+
+    // Error handling
+    const obj = {name, email, address}; 
+    const empty = Object.keys(obj).filter(key => obj[key] === '');
+
+    let newErrorMessage = {};
+    empty.forEach(key => {
+      newErrorMessage = {
+        ...newErrorMessage,
+        [key]: `Please fill in your ${key}`
+      }
+      this.setState({ errorMessage: newErrorMessage})
+    })
     const addarr = address.split(',');
 
     // get specific address elements
@@ -32,54 +64,74 @@ class HostSignUp extends Component {
     const country =addarr.slice(addarr.length -1, addarr.length).toString();
     
     const data = {
-      action:'signUpAsHost',  // for server
-      eventId: 'Olkkarikekkerit_18', 
+      mainEvent:'Olkkarikekkerit_18',
+      eventId:'gig_151118',
+      action:'signUpAsHost',
       name,
       email,
       location,
       address,
       street, city, country, 
-      newsletter
+      newsletter,
+      error: '',
     }
     // Disable to test snackbar
-    // request
-    //   .post('https://nodedev.gigleapp.com/gig')
-    //   .send(data)
-    //   .end((err, res) => {
-    //     if(err) { console.log(err) };
-    //     if(res) { 
-    //       console.log('Successfully registered!')
-    //       console.log(data)
-    //       console.log(res) 
-    //       this.props.submitSuccess();
-    //     };
-    //   });
-    console.log(data);
-    this.props.submitSuccess();
+    request
+      .post('https://nodedev.gigleapp.com/gig')
+      .send(data)
+      .end((err, res) => {
+        if(err) { console.log(err) };
+        if(res && res.body.success) { 
+          console.log('Successfully registered!');
+          this.props.submitSuccess();
+        };
+        if(res && res.body.error) {
+          console.log(data)
+          console.log(res.body.error)
+          this.setState({ error: 'Please make sure that you have filled in all necessary information above', loading: false })
+        }
+      });
   }
 
   render() {
-    const { name, email, newsletter } = this.state;
-    const { closeModal, modalShow } = this.props;
+    const { name, email, newsletter, loading, error, errorMessage } = this.state; 
 
     let locationSearch = (
       <SearchInput
         placeholder='Your address'
         selectLocation={(location, address) => this.selectLocation(location, address)}
+        disabled={loading}
       />
     )
 
     return (
+      <div onClick={this.props.formClick}>
         <Form
           title='Sign up as host'
           description={`Up for hosting an unforgettable kids'event at your place? Excellent! Some short info about the event here, after which we'll collect the person's email & address. Rest of the interaction will be handed manually by email`}
-          buttonLabel='I am interested in hosing a gig'
+          buttonLabel='Sign up as a host'
           name={name} email={email} newsletter={newsletter}
           inputChange={(e, item) => this.handleChange(e, item)}
           subscribe={value=> this.setState({ newsletter: value})}
           additionalFields={locationSearch}
           signup={this.signup}
+          loading={
+            loading
+            ?
+            <MDSpinner size={40} singleColor='green' className='spinner' />
+            :
+            null
+          }
+          error={
+            error
+            ?
+            <p style={{ textAlign: 'center', color: 'red'}}>{error}</p>
+            : null
+          }
+          errorMessage={errorMessage}
+          inputDisabled={loading}
         />
+      </div>
     )
   }
 }
