@@ -1,26 +1,28 @@
 import React, { Component } from 'react';
 import './Form.scss';
 import Input from '../Input/Input';
-import { Switch } from '@material-ui/core';
-import Button from '../Button/Button';
+
+import Switch from '@material-ui/core/Switch';
+
+
 
 export default class Form extends Component {
   
   render() {
     const { 
       title, description, buttonLabel, loading, error, errorMessage,
-      name, email, newsletter, 
+      name, email, newsletter, roomProps,
       inputDisabled, inputChange, subscribe, signup, furtherInfo,
-      additionalFields
+      additionalFields, params
     } = this.props;
     return (
       <div className='form-content'>
           <h2>{title}</h2>
           <p className='description'>{description}</p>
-          <p>Personal information</p>
+          
           <Input
             value={name}
-            placeholder='Your name'
+            placeholder='Nimi'
             onChange={(e) => inputChange(e, 'name')}
             disabled={inputDisabled}
           />
@@ -32,9 +34,9 @@ export default class Form extends Component {
           }
           <Input
             value={email}
-            placeholder='Your email'
+            placeholder='Sähköposti'
             onChange={(e) => inputChange(e, 'email')}
-            bottomLabel={<span>We'll continue talking through email after getting in touch with you</span>}
+            
             disabled={inputDisabled}
           />
           {
@@ -51,12 +53,19 @@ export default class Form extends Component {
             <p className='error-message'>{errorMessage.address}</p>
             : null
           }
-
           <section className='newsletter'>
-            <span>All of these is very interesting. I want to stay updated about similar events and happenings with a Gigle newsletter</span>
+            <span>Olkkarini on vapaana {params.time} ja meillä on tarvittava avoin tila esiintyjälle ( {params.performer.stage} ) ja yleisölle.</span>
+            <Switch
+              checked={roomProps}
+              onChange={(e,checked) => inputChange(checked,'roomProps','checkbox')}
+              color='primary'
+            />
+          </section>
+          <section className='newsletter'>
+            <span>Haluan Giglen uutiskirjeen mailiini, jotta saan tietää tulevista tapahtumista ja keikoista ensimmäisten joukossa.</span>
             <Switch
               checked={newsletter}
-              onChange={e => subscribe(e.target.checked)}
+              onChange={(e,checked) => inputChange(checked,'newsletter','checkbox')}
               color='primary'
             />
           </section>
@@ -74,10 +83,7 @@ export default class Form extends Component {
             error
             : null
           }
-          <Button
-            label={buttonLabel}
-            onClick={signup}
-          />
+          
           <span>{furtherInfo}</span>
       </div>
     )

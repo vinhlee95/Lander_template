@@ -1,8 +1,8 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 
 const sizes = {
-  big: 1200,
-  desktop: 1000,
+  big: 1400,
+  desktop: 1200,
   tablet: 768,
   phone: 576,
 }
@@ -17,6 +17,16 @@ const media = Object.keys(sizes).reduce((acc, label) => {
 
   return acc
 }, {})
+
+const Centered = styled.div`
+	
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;	
+	text-align: ${props => props.textAlign ? props.textAlign : 'left'};
+	padding: ${props => props.padding ? props.padding : '1rem'};
+`;
 
 const Title = styled.div`
 	width: 100%;
@@ -53,13 +63,18 @@ const InfoSection= styled.div`
 	display: flex;
 	width: 90%;
 	margin: 0 auto;
-	
+	${media.phone,media.tablet`
+		flex-direction:column; 
+		width: 100%;
+
+	`}
 `;
 
 const InfoSectionImage= styled(BgImage)`
 	position:relative;
 	flex: 1;
 	margin: 2rem;
+	min-height:60vh;
 `;
 
 const InfoSectionText= styled.div`
@@ -77,7 +92,10 @@ const ListContainer = styled.div`
   	flex-wrap: wrap;
   	justify-content: center;
 
-  	
+  	${media.phone`
+		width:100%;
+
+	`}
   	
   	
 `;
@@ -157,36 +175,53 @@ const ItemButton = styled.div`
 
 
 
-const HeroImage = styled.div`
-	position:relative;
-	border-radius: 10px 10px 0 0;
-	background:#dddddd;
-	background-size: cover;
-	background-position: top center;
-	height: 50vh;
+const BottomButton = styled.div`
+  background: ${props => props.disabled ? '#cccccc' : 'green'};
+  color: white;
+  text-align: center;
+  position: absolute;
+  bottom: .5vh;
+  left: 5%;
+  height:9.5vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size: 1.3rem;
+  border-radius: .5rem;
+  width: 90%;
+  cursor:  ${props => props.disabled ? 'default' : 'pointer'};
+
+  &:hover {
+    opacity: ${props => props.disabled ? '.8' : '1'};
+    
+  }
+
+  transition: all .2s ease;
+
 `;
 
-const HeroTitle = styled.div`
-  position:absolute;
-  bottom: 0;
-	width:100%;
-	text-align:center;
-	font-size:1.5rem;
-  color: black;
-  background-color: rgba(255,255,255, .9);
-  padding: 5px 0;
-  margin-bottom: 5px;
+
+
+
+/* Animations */
+const appear = keyframes`
+  from {
+  	opacity:0;
+    transform: scale(.75,.75);
+  }
+
+  to {
+  	opacity:1;
+    transform: scale(1,1);
+  }
 `;
-
-const ModalDescription = styled.div`
-
-  padding: 2rem;
-`;
-
 
 
 
 export {
+	media,
+	appear,
+	Centered,
 	Title,
 	Subtitle,
 	Ingress,
@@ -197,10 +232,9 @@ export {
 	ItemTitle,
 	ItemDescription,
 	ItemButton,
-	HeroImage,
-	HeroTitle,
-	ModalDescription,
 	InfoSection,
 	InfoSectionImage, 
-	InfoSectionText 
+	InfoSectionText,
+
+	BottomButton 
 }

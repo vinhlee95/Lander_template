@@ -15,10 +15,11 @@
 
   %modal-content {
     background: #fff;
-    width: 40%;
+    width: 60%;
     position: absolute;
-    top: 10vh;
-    left: 30%;
+    height: 90vh;
+    top: 5vh;
+    left: 20%;
     border-radius: 10px;
     transition: all;
     z-index: 100000001;
@@ -82,7 +83,7 @@
     }
   }
 
-<<<<<<< HEAD
+
   .children {
     background: #fff;
     width: 90%;
@@ -93,7 +94,7 @@
     top: 5%;
     border-radius: 10px;
     transition: all;
-=======
+
   @keyframes zoomOut {
     0% {
       opacity: 0;
@@ -105,7 +106,7 @@
       opacity: 1;
       transform: scale(1);
     }
->>>>>>> registration
+
   }
 }
 
@@ -142,4 +143,4 @@
     transform: translateY(-100%);
   }
 }
-
+}

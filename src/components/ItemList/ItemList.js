@@ -39,6 +39,7 @@ export default class ItemList extends Component {
   			{ 
   				Object.keys(items).map( key => {
             let itemData=items[key];
+            itemData.id=key;
   					return <ListItem data={ itemData } onClick={ ()=>this.props.onItemClick(itemData)} />
   				})
   			}
@@ -64,7 +65,7 @@ const ListItem = props => {
     break;
 
     default:
-      label='Tilaa keikka';
+      label='Ilmoittaudu olkkariksi';
     break;
   }
  

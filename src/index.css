@@ -18,42 +18,77 @@
   z-index: 1000000; }
   .modal .button {
     border-radius: 0; }
+  .modal .description-modal, .modal .form-content, .modal .success-modal {
+    background: #fff;
+    width: 60%;
+    position: absolute;
+    height: 90vh;
+    top: 5vh;
+    left: 20%;
+    border-radius: 10px;
+    transition: all;
+    z-index: 100000001; }
+  .modal .description-modal {
+    animation: slideDown .3s ease-out forwards; }
+    .modal .description-modal .description {
+      margin: 10px auto;
+      width: 90%;
+      line-height: 1.3rem; }
+  .modal .form-content {
+    top: 5vh;
+    padding: 20px 20px;
+    animation: zoomOut .3s ease-out forwards; }
+    .modal .form-content .loading-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px; }
+    .modal .form-content .button {
+      border-radius: 5px; }
+    .modal .form-content .error-message {
+      color: red;
+      margin: 5px 0; }
   .modal .success-modal {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    animation: successModalShow .3s ease-out forwards;
-    padding: 20px 0; }
+    width: 30%;
+    left: 35%;
+    top: 20vh;
+    padding: 10px 0;
+    animation: zoomOut .3s ease-out forwards; }
     .modal .success-modal h1 {
-      text-align: center;
       margin-top: 0; }
-@keyframes successModalShow {
+@keyframes slideDown {
   0% {
     opacity: 0;
-    transform: translateY(100%); }
+    transform: translateY(-200%); }
   60% {
     opacity: 0; }
   100% {
     opacity: 1;
     transform: translateY(0); } }
-.children {
-  background: #fff;
-  width: 90%;
-  height: 80%;
-  max-width: 600px;
-  position: relative;
-  margin: auto;
-  top: 5%;
-  border-radius: 10px;
-  transition: all; }
-
-.children-show {
-  animation: childrenShow .3s ease-in forwards; }
-
-.children-hide {
-  animation: childrenHide .3s ease-out forwards; }
-
+  .modal .children {
+    background: #fff;
+    width: 90%;
+    height: 80%;
+    max-width: 600px;
+    position: relative;
+    margin: auto;
+    top: 5%;
+    border-radius: 10px;
+    transition: all; }
+@keyframes zoomOut {
+  0% {
+    opacity: 0;
+    transform: scale(0.1); }
+  100% {
+    opacity: 1;
+    transform: scale(1); } }
+  .modal .children-show {
+    animation: childrenShow .3s ease-in forwards; }
+  .modal .children-hide {
+    animation: childrenHide .3s ease-out forwards; }
 @keyframes childrenShow {
   0% {
     opacity: 0;
@@ -105,17 +140,9 @@
   ); }
 
 .intro-container {
-  height: 60vh;
-  width: 100%;
-  display: block;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
-  z-index: 1000;
-  background: url("https://gigleapp.com/olkkarikekkerit/static/intro_desktop.jpg");
-  background-size: cover;
-  background-position: center; }
+  position: relative;
+  height: 50vh;
+  width: 100%; }
   .intro-container h1 {
     color: #fff;
     margin: 15px auto;
@@ -147,13 +174,13 @@
   --body-font: 'Raleway', sans-serif; }
 
 .input {
-  margin-bottom: 15px; }
+  margin-bottom: 10px; }
   .input input {
     font-family: var(--body-font);
     border: none;
     border-bottom: 1px solid lightgrey;
     padding: 0 0 5px;
-    margin-bottom: 5px;
+    margin: .5rem 0;
     width: 100%;
     font-size: 16px;
     color: #1b1a1a; }
@@ -190,7 +217,12 @@
 .form-content {
   transition: all;
   width: 90%;
-  margin: 20px auto;
+  height: 78%;
+  position: absolute;
+  top: 10vh;
+  left: 5%;
+  overflow: auto;
+  margin: 0 auto 5rem auto;
   animation: formShow .3s ease-out forwards; }
   .form-content h2 {
     text-align: center;
@@ -709,16 +741,17 @@ html, body, div, p {
   text-align: left; }
 
 .gigle-footer {
-  width: 100%;
+  width: 90%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 2rem 0;
   font-size: .9rem;
   border-top: 1px solid #cccccc;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  justify-content: space-between; }
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden; }
 
 .footer {
   width: 95%;
@@ -727,7 +760,7 @@ html, body, div, p {
 
 .footer-row {
   display: flex;
-  width: 100%;
+  width: 90%;
   flex-direction: column;
   text-align: center; }
   @media (min-width: 768px) {
@@ -824,6 +857,7 @@ html, body, div, p {
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif; }
+  font-family: sans-serif;
+  overflow-x: hidden; }
 
 /*# sourceMappingURL=index.css.map */
