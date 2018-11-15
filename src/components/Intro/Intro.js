@@ -13,7 +13,7 @@ export default class Intro extends Component {
         <HeroContent>
           <HeroContentImg src='https://gigleapp.com/olkkarikekkerit/static/olkkarikekkerilogo.svg' />
           <HeroContentDescription>
-            <p>Kutsu esiintyjä kylään ja avaa ovesi naapuruston lapsille.</p>
+            <p>Parhaita lastenelämyksiä naapurin olohuoneessa Helsingissä.</p>
             <p>Me tarjoamme.</p></HeroContentDescription>
         </HeroContent>
 

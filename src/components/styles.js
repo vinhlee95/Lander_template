@@ -21,7 +21,8 @@ const media = Object.keys(sizes).reduce((acc, label) => {
 const Centered = styled.div`
 	
 	display: flex;
-	flex-direction: column;
+	flex-direction: ${props => props.row ? props.row : 'column'};
+	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;	
 	text-align: ${props => props.textAlign ? props.textAlign : 'left'};
@@ -173,30 +174,54 @@ const ItemButton = styled.div`
 	position:relative;	
 `;
 
-
+const BottomArea = styled.div`
+	background: white;
+	position: fixed;
+	background: white;
+	margin: 0;
+	width: 50%;
+	left: 25%;
+	display: block;
+	
+	bottom: 6vh;
+	padding: 1rem 0;
+	text-align: center;
+	${media.big`width:60%; left: 20%;`}
+	  ${media.desktop`width:70%; left: 15%; `}
+	  ${media.tablet`width:80%; left: 10%; `}
+	  ${media.phone`
+	    width:96%;  left: 2%;
+	    bottom: 0;
+	  `}
+`;
 
 const BottomButton = styled.div`
   background: ${props => props.disabled ? '#cccccc' : 'green'};
   color: white;
   text-align: center;
-  position: absolute;
-  bottom: .5vh;
-  left: 5%;
-  height:9.5vh;
+  position: relative;
+  margin: 0 auto;
+  width: 90%;
+  padding: 1rem;
+  
   display:flex;
+  flex-wrap: wrap;
   justify-content:center;
   align-items:center;
   font-size: 1.3rem;
   border-radius: .5rem;
-  width: 90%;
+  opacity: ${props => props.disabled ? '.6' : '1'};
   cursor:  ${props => props.disabled ? 'default' : 'pointer'};
 
   &:hover {
-    opacity: ${props => props.disabled ? '.8' : '1'};
+    opacity: ${props => props.disabled ? '.6' : '.8'};
+
     
   }
 
-  transition: all .2s ease;
+  
+
+   transition: all .2s ease;
 
 `;
 
@@ -235,6 +260,6 @@ export {
 	InfoSection,
 	InfoSectionImage, 
 	InfoSectionText,
-
+	BottomArea,
 	BottomButton 
 }

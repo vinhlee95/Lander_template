@@ -53,14 +53,7 @@ export default class Form extends Component {
             <p className='error-message'>{errorMessage.address}</p>
             : null
           }
-          <section className='newsletter'>
-            <span>Olkkarini on vapaana {params.time} ja meillä on tarvittava avoin tila esiintyjälle ( {params.performer.stage} ) ja yleisölle.</span>
-            <Switch
-              checked={roomProps}
-              onChange={(e,checked) => inputChange(checked,'roomProps','checkbox')}
-              color='primary'
-            />
-          </section>
+          
           <section className='newsletter'>
             <span>Haluan Giglen uutiskirjeen mailiini, jotta saan tietää tulevista tapahtumista ja keikoista ensimmäisten joukossa.</span>
             <Switch

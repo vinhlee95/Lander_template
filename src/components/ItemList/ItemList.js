@@ -1,7 +1,7 @@
 /* 
 	ItemList
 */
-
+import moment from 'moment';
 import React, { Component } from 'react';
 import { ListContainer, ItemContainer, ItemImageRow, ItemDescriptionRow,ItemTitle, ItemDescription, ItemButton } from '../styles';
 
@@ -22,11 +22,22 @@ export default class ItemList extends Component {
   			eventId:'Olkkarikekkerit18'
 	  	}, reply => {
 	  		console.log('Got reply: ',reply);
-        this.setState({items:reply.data.items});
+        let items=reply.data.items;
+        let itemArr=[];
+        if (items) { Object.keys(items).map( key => { 
+          items[key].id=key;
+          itemArr.push(items[key]); });  
+        }
+        itemArr.sort(compare);
+        this.setState({items:itemArr});
 	  	});
   	} else console.warn ('ItemList: No agent provided!');
   	
   }
+
+  
+
+  
 
   render(){
 
@@ -37,10 +48,10 @@ export default class ItemList extends Component {
   	return (
   		<ListContainer>
   			{ 
-  				Object.keys(items).map( key => {
-            let itemData=items[key];
-            itemData.id=key;
-  					return <ListItem data={ itemData } onClick={ ()=>this.props.onItemClick(itemData)} />
+  				items.map( itemData => {
+            //let itemData=items[key];
+            //itemData.id=key;
+  					return <ListItem key={itemData.id} data={ itemData } onClick={ ()=>this.props.onItemClick(itemData)} />
   				})
   			}
   		</ListContainer>
@@ -53,15 +64,16 @@ export default class ItemList extends Component {
 const ListItem = props => {
 
 	console.log('Props: ',props);
-  let label;
+  let label, address;
   let status = props.data.status.value || 0;
   switch (status) {
     case 1:
       label='Tule keikalle';
+      address=<ItemDescription>{props.data.area}</ItemDescription>
     break;
 
     case 2:
-      label='Täynnä';
+      label='Tulossa pian';
     break;
 
     default:
@@ -76,14 +88,32 @@ const ListItem = props => {
 			<ItemDescriptionRow>
 				<ItemTitle>{props.data.performer.name}</ItemTitle>
 				<ItemDescription>{props.data.time}</ItemDescription>
+        {address}
 				<ItemButton>{label}</ItemButton>
 			</ItemDescriptionRow>
 		</ItemContainer>
 	);
 }
 
+// hackish sorting based on item time. :)
 
+const compare = (a,b) => {
+   
+    let a1 = a.time.split(',')[0].split('.');
+    let aStr=a1[2]+twoDigits(a1[1])+twoDigits(a1[0]);
+    let b1 = b.time.split(',')[0].split('.');
+    let bStr=b1[2]+twoDigits(b1[1])+twoDigits(b1[0]);
 
+    
+    if (parseInt(aStr) < parseInt(bStr))  return -1;
+    else return 1;
+    
+  }
+
+const twoDigits = (n) => {
+    return ("0" + n).slice(-2);
+    
+  }
 
 
 	

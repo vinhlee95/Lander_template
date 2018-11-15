@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import './Modal.scss';
 import Button from '../Button/Button';
-import { Centered, BottomButton, appear, media } from '../styles';  
-import HostSignUp from './HostSignUp/HostSignUp';
-import { FaCheck, FaAngleLeft, FaTimes  } from 'react-icons/fa';
+import { Centered, BottomButton, BottomArea, appear, media } from '../styles';  
+import SignUp from './SignUp/SignUp';
+import { FaCheck, FaAngleLeft, FaTimes, FaClock, FaMapMarker  } from 'react-icons/fa';
 import styled, { css } from 'styled-components';
 
 
@@ -12,12 +12,14 @@ import styled, { css } from 'styled-components';
 class Modal extends Component {
   constructor(props) {
     super(props);
+    console.log('Launching modal: ',props);
     const { state, modalParams } = this.props;
     const { performer, time } = modalParams;
     const { name, description } = performer;
     this.state = {
       state,
-      name, description, time
+      name, description, time,
+      gigStatus:modalParams.status.value
     }
   }
 
@@ -33,7 +35,7 @@ class Modal extends Component {
     switch (state) {
       case 'form':
         console.log('show signup form');
-        content=this.showSignupForm();
+        content=this.showSignupForm(this.state.gigStatus);
       break;
 
       case 'submitSuccess': 
@@ -42,12 +44,14 @@ class Modal extends Component {
 
       case 'showDescription':
         console.log('show description');
-        content=this.showDescription();
+        content=this.showDescription(this.state.gigStatus);
       break;
 
       default:
         content=null
     }
+
+
 
     return(
       <ModalBase onClick={this.props.handleCloseModal}>
@@ -58,72 +62,142 @@ class Modal extends Component {
 
   /* content */
 
-  showDescription = () => {
-    let backgroundImage, performerName, time, description;
+  showDescription = (gigStatus) => {
+    
+    let backgroundImage, performerName, time, description, area, title, buttonLabel, placeTime, button;
     if (this.props.modalParams){
         backgroundImage= this.props.modalParams.performer.image;
         performerName = this.props.modalParams.performer.name;
         time=this.props.modalParams.time;
+        area=this.props.modalParams.area;
         description=this.props.modalParams.performer.description;
+    }
+
+    switch (gigStatus) {
+      
+      case 1:
+        title = <div>{performerName}</div>;
+        buttonLabel = 'Ilmoittaudu keikalle';
+        
+        
+        button = <BottomButton 
+            onClick={()=>this.setState({state:'form'})}
+          >
+            <div style={{flex:1}}>Ilmoittaudu keikalle</div>
+            <div style={{flex:1, fontSize:'.9rem'}}><div><FaMapMarker/>&nbsp; {area}</div><div> <FaClock/>&nbsp; {time}</div></div>;
+          </BottomButton>
+      break;
+
+      case 2:
+        title= performerName+' olohuoneessasi '+time;
+        button = <BottomButton 
+           disabled
+          >
+            <div style={{flex:1}}>Tulossa pian</div>
+          
+          </BottomButton>
+      break;
+
+      default:
+        title= performerName+' olohuoneessasi '+time
+        button = <BottomButton 
+            onClick={()=>this.setState({state:'form'})}
+          >
+            <div style={{flex:1}}>Jatka</div>
+            
+          </BottomButton>
     }
 
     return (
       <ModalContent onClick={(e) => e.stopPropagation()} >
         
-        <HeroImage style={{backgroundImage:'url('+backgroundImage+')'}} >
+        <HeroImage style={{backgroundImage:'url('+backgroundImage+')'}} />
           
-        </HeroImage>
-
+        
+        
         <ModalDescription dangerouslySetInnerHTML={this.innerHtml(description)} />
-        <BottomButton 
-          onClick={()=>this.setState({state:'form'})}
-        >Jatka</BottomButton>
+        <BottomArea>
+          {button}
+          <BookLink onClick={this.goToGigle}>Etkö pääse keikalle? <u>Tilaa esiintyjä kotiisi!</u></BookLink>
+        </BottomArea>
        <ModalHeader>
          
-         <HeroTitle>{performerName} olohuoneessasi {time}</HeroTitle>
+         <HeroTitle>{title}</HeroTitle>
          <HeaderButton onClick={this.props.handleCloseModal}><FaTimes  /></HeaderButton>
        </ModalHeader>
       </ModalContent>
     );
   }
 
-  showSignupForm = () => {
+  showSignupForm = (gigStatus) => {
     const { name, email, newsletter } = this.state;
-    console.log('signup form showed')
+    console.log('signup form showed');
+
+    let title, content;
+    switch (gigStatus) {
+      case 1:
+        title='Ilmoittaudu keikalle';
+        
+      break;
+
+      default:
+        title='Ilmoita olkkarisi';
+        
+    }
+
     return (
         <ModalContent onClick={(e) => e.stopPropagation()} >
-          <HostSignUp
+          <SignUp
             agent={this.props.agent}
             modalParams={this.props.modalParams}
             submitSuccess={this.submitSuccess}
             formClick={e => e.stopPropagation()}
           />
           <ModalHeader>
-         <HeaderButton onClick={()=>this.setState({state:'showDescription'})}><FaAngleLeft  /></HeaderButton>
-         <HeroTitle>Ilmoita olkkarisi</HeroTitle>
-         <HeaderButton onClick={this.props.handleCloseModal}><FaTimes  /></HeaderButton>
-       </ModalHeader>
+             <HeaderButton onClick={()=>this.setState({state:'showDescription'})}><FaAngleLeft  /></HeaderButton>
+             <HeroTitle>{title}</HeroTitle>
+             <HeaderButton onClick={this.props.handleCloseModal}><FaTimes  /></HeaderButton>
+           </ModalHeader>
         </ModalContent>
     )
   }
 
   showSuccess = () => {
-    let backgroundImage, performerName, time, description;
-    if (this.props.modalParams){
-        backgroundImage= this.props.modalParams.performer.image;
-        performerName = this.props.modalParams.performer.name;
-        time=this.props.modalParams.time;
-        description=this.props.modalParams.performer.description;
+
+    const { status, performer, time } = this.props.modalParams;
+    let backgroundImage, performerName, title, description;
+
+    
+    switch (status.value) {
+      case 1:
+        title = 'Keikkailmoittautuminen lähetetty'
+        description = <div>
+            <p>Kiitos ilmoittautumisesta!</p>
+            <p>Otamme yhteyttä sähköpostitse piakkoin!</p>
+          </div>
+      break;
+
+      default:
+        title = 'Esiintyjä tilattu!'
+        description = <div>
+            <p>Kiitos tilauksesta!</p>
+            <p>Lähetämme vahvistuksen sähköpostiisi ja valitsemme olohuoneet 15.10. ilmoittautuneiden joukosta.</p>
+          </div>
+      break;
     }
+    //if (this.props.modalParams){
+        backgroundImage= performer.image;
+        //performerName = performer.name;
+        //description=performer.description;
+    //}
     return(
       <ModalContent onClick={(e) => e.stopPropagation()} >
         <HeroImage style={{backgroundImage:'url('+backgroundImage+')'}} >
-          <HeroTitle>Tilaus lähetetty</HeroTitle>
+          
         </HeroImage>
         <Centered textAlign='center'>
           <FaCheck size={80} color='green' />
-          <p>Kiitos tilauksesta!</p>
-          <p>Saat meiltä sähköpostia ihan pian! Tarkistelemme tiedot, varmistamme tilauksen ja kerromme lisää tapahtuman kulusta.</p>
+          {description}
         </Centered>
         <BottomButton 
           onClick={this.props.handleCloseModal}
@@ -134,24 +208,38 @@ class Modal extends Component {
 
   innerHtml = (html) => { return { __html: html }; };
 
-  
+  goToGigle = () => {
+    window.open('https://gigleapp.com/search/?tg=tag_2','gigle');
+  }
 
 }
+
+
 
 /* styles */
 
 const ModalHeader = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: fixed;
+  top: 5vh;
+  left: 25%;
   
-  width: 100%;
+  margin: 0;
+  width: 50%;
   height:10vh;
   background: rgba(255,255,255,.75);
   display:flex;
   justify-content:space-between;
   align-items:center;
   
+  ${media.big`width:60%; left:20%;`}
+  ${media.desktop`width:70%; left:15%; `}
+  ${media.tablet`width:80%; left:10%; `}
+  ${media.phone`
+    width:100%; 
+    top:0;
+    left:0;
+  `}
+
 `;
 
 const ModalBase = styled.div`
@@ -161,7 +249,7 @@ const ModalBase = styled.div`
   background-color: rgba(0,0,0, .7);
   width: 100%;
   height: 100%;
-  
+  z-index:10;
   
 `;
 
@@ -169,19 +257,20 @@ const ModalContent = styled.div`
 
   background: #fff;
   width: 50%;
-  position: absolute;
+  left:25%;
+  position: fixed;
   height: 90vh;
   top: 5vh;
-  left: 25%;
+  margin: 0 auto;
   border-radius: 10px;
   transition: all;
   overflow: auto;
   
   animation: ${appear} .3s ease;
 
-  ${media.big`width:60%; left: 20%;`}
-  ${media.desktop`width:70%; left: 15%; `}
-  ${media.tablet`width:80%; left: 10%; `}
+  ${media.big`width:60%; left:20%;`}
+  ${media.desktop`width:70%; left:15%; `}
+  ${media.tablet`width:80%; left:10%; `}
   ${media.phone`
     width:100%; 
     height:100%;
@@ -204,7 +293,7 @@ const HeroTitle = styled.div`
   
   text-align:center;
   font-size:1.5rem;
-  color: black;
+  width:100%;
 
   ${media.phone`
     font-size:1.2rem;
@@ -215,14 +304,24 @@ const HeroTitle = styled.div`
 const HeaderButton = styled.div`
   
   font-size:1.6rem;
-  padding: .5rem;
+  padding: 1rem;
   
 `;
 
 const ModalDescription = styled.div`
   margin: 2rem;
-  height:30%;
-  overflow: auto;
+  margin-bottom:20rem;
+ 
+  
+
+`;
+
+const BookLink = styled.div`
+  cursor:pointer;
+  padding-top: 1rem;
+  &:hover { opacity: .6; }
+  
+
 `;
 
 

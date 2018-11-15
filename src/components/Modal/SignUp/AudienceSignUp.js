@@ -13,7 +13,7 @@ import MDSpinner from 'react-md-spinner';
 import _ from 'lodash';
 import { BottomButton } from '../../styles';
 
-class HostSignUp extends Component {
+class AudienceSignUp extends Component {
   state = {
     name: '', email: '', 
     location: null, address: '', 
@@ -111,24 +111,7 @@ class HostSignUp extends Component {
       });
     } else console.warn ('ItemList: No agent provided!');
 
-    /*
-    // Disable to test snackbar
-    request
-      .post('https://nodedev.gigleapp.com/gig')
-      .send(data)
-      .end((err, res) => {
-        if(err) { console.log(err) };
-        if(res && res.body.success) { 
-          console.log('Successfully registered!');
-          this.props.submitSuccess();
-        };
-        if(res && res.body.error) {
-          console.log(data)
-          console.log(res.body.error)
-          this.setState({ error: 'Please make sure that you have filled in all necessary information above', loading: false })
-        }
-      });
-      */
+    
   }
 
   render() {
@@ -138,13 +121,13 @@ class HostSignUp extends Component {
     let locationSearch = (
       <div>
       <SearchInput
-        placeholder='Osoite'
+        placeholder='Osoite (Helsingissä)'
         selectLocation={(location, address) => this.selectLocation(location, address)}
         disabled={loading}
       />
-      <FormControl className={classes.formControl}>
+      <FormControl className={classes.formControl}  >
           <InputLabel htmlFor="audience">Yleisön määrä (maksimi, lapset)</InputLabel>
-          <Select
+          <Select 
             autoWidth={true}
             value={this.state.audience}
             onChange={(e)=>this.handleChange(e,'audience')}
@@ -177,7 +160,7 @@ class HostSignUp extends Component {
           name={name} email={email} newsletter={newsletter}
           inputChange={(e, item, type) => this.handleChange(e, item, type)}
           subscribe={value=> this.setState({ newsletter: value})}
-          additionalFields={locationSearch}
+          additionalFields={}
           signup={this.signup}
           loading={
             loading
@@ -207,8 +190,9 @@ const styles = {
       fullWidth: true,
       backgroundColor: "white",
       display: "flex",
-      wrap: "nowrap"
+      wrap: "nowrap",
+      zIndex:200000000000
     }
   };
 
-export default withStyles(styles)(HostSignUp);
+export default withStyles(styles)(AudienceSignUp);
